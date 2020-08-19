@@ -1,0 +1,4 @@
+include ':libdata'
+include ':libcommon'
+include ':app'
+rootProject.name = "MvvmForWaz"

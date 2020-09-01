@@ -1,7 +1,8 @@
-package com.mg.axechen.wanandroid
+package com.mg.axechen.wanandroid.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.mg.axechen.wanandroid.R
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

@@ -11,7 +11,7 @@ import kotlinx.coroutines.*
  * ViewMoel基类
  * 提供携程，数据访问、解析、异常处理。
  */
-class BaseViewModel : ViewModel() {
+open class BaseViewModel : ViewModel() {
 
     // 携程异步主要方法
     fun launch(block: suspend CoroutineScope.() -> Unit) {

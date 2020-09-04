@@ -5,9 +5,9 @@ import com.google.gson.annotations.SerializedName
 
 data class ResponseEntity<T>(
     @SerializedName("info")
-    val code: Int,
+    val errorCode: Int,
     @SerializedName("msg")
-    val message: String,
+    val errorMsg: String,
     @JsonAdapter(EntitySecurityAdapter::class)
     val data: T?,
     val callback: String
@@ -15,9 +15,9 @@ data class ResponseEntity<T>(
 
 data class ResponseList<T>(
     @SerializedName("info")
-    val code: Int,
+    val errorCode: Int,
     @SerializedName("msg")
-    val message: String,
+    val errorMsg: String,
     @JsonAdapter(ListSecurityAdapter::class)
     val data: MutableList<T>?,
     val callback: String

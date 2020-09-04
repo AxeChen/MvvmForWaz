@@ -6,6 +6,7 @@ import com.google.gson.GsonBuilder
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
 import java.lang.reflect.Field
 import java.lang.reflect.Method
 import java.net.Proxy
@@ -19,6 +20,7 @@ object RetrofitHelper {
 
     fun buildOkHttpClient(): OkHttpClient.Builder {
         val logging = HttpLoggingInterceptor()
+        logging.level = HttpLoggingInterceptor.Level.BODY
         return OkHttpClient.Builder()
             .addInterceptor(logging)
             .connectTimeout(CONNECTION_TIME_OUT, TimeUnit.SECONDS)
@@ -44,7 +46,10 @@ object RetrofitHelper {
             .addDeserializationExclusionStrategy(exclusionStrategy)
             .create()
 
-        return Retrofit.Builder().baseUrl(baseUrl).client(client).build()
+        return Retrofit.Builder()
+            .baseUrl(baseUrl)
+            .addConverterFactory(GsonConverterFactory.create())
+            .client(client).build()
     }
 
     fun buildRetrofit(baseUrl: String): Retrofit {

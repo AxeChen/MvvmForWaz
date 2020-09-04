@@ -5,6 +5,13 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:colorBackground">@color/line</item>
+    </style>
+
+    <style name="titleStyle">
+        <item name="android:textColor">@color/text_title</item>
+        <item name="android:textSize">18dp</item>
+
     </style>
 
 </resources>

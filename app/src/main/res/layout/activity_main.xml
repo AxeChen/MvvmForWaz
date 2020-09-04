@@ -21,7 +21,8 @@
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolBar"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="?actionBarSize"
+            app:layout_scrollFlags="scroll|enterAlways" />
 
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/mainTabLayout"
@@ -31,10 +32,12 @@
 
     </com.google.android.material.appbar.AppBarLayout>
 
+
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/mainViewPager"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

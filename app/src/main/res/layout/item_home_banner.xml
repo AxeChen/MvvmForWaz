@@ -7,7 +7,8 @@
     <ImageView
         android:id="@+id/bannerImage"
         android:layout_width="match_parent"
-        android:layout_height="100dp" />
+        android:layout_height="150dp"
+        android:scaleType="center" />
 
     <TextView
         android:id="@+id/bannerTitle"

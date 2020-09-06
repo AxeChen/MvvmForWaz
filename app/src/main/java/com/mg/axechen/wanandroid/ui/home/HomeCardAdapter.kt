@@ -1,30 +1,40 @@
 package com.mg.axechen.wanandroid.ui.home
 
 import android.content.Context
+import android.media.Image
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.fragment.app.FragmentActivity
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.StaggeredGridLayoutManager
+import com.bumptech.glide.Glide
 import com.chad.library.adapter.base.BaseMultiItemQuickAdapter
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.viewholder.BaseViewHolder
+import com.mg.axechen.libcommon.DensityUtil
 import com.mg.axechen.wanandroid.R
 import com.mg.axechen.wanandroid.model.ArticleBean
 import com.mg.axechen.wanandroid.model.BannerBean
+import com.mg.axechen.wanandroid.model.ProjectBean
 import com.youth.banner.Banner
 import com.youth.banner.adapter.BannerAdapter
 
-class HomeCardAdapter(private var activity:FragmentActivity,views: MutableList<HomeCardViewType>) :
+class HomeCardAdapter(
+    private var activity: FragmentActivity,
+    views: MutableList<HomeCardViewType>
+) :
     BaseMultiItemQuickAdapter<HomeCardViewType, BaseViewHolder>(views) {
 
     init {
         addItemType(HomeCardViewType.VIEW_CARD_REWARD, R.layout.item_home_card_about_app)
         addItemType(HomeCardViewType.VIEW_TYPE_HOT_ARTICLE, R.layout.item_home_card_hot_article)
         addItemType(HomeCardViewType.VIEW_TYPE_BANNER, R.layout.item_home_card_banner)
+        addItemType(HomeCardViewType.VIEW_TYPE_HOT_PROJECT, R.layout.item_home_card_project_card)
     }
 
 
@@ -45,10 +55,22 @@ class HomeCardAdapter(private var activity:FragmentActivity,views: MutableList<H
             // banner
             var bannerList = item.item as MutableList<BannerBean>
             var adapter = HomeBannerAdapter(context, bannerList)
-            var banner = holder.getView<Banner<BannerBean,HomeBannerAdapter>>(R.id.bannerArticle)
+            var banner = holder.getView<Banner<BannerBean, HomeBannerAdapter>>(R.id.bannerArticle)
             banner.addBannerLifecycleObserver(activity)
                 .setAdapter(adapter)
                 .start()
+
+        } else if (item.itemType == HomeCardViewType.VIEW_TYPE_HOT_PROJECT) {
+            var projectList = item.item as MutableList<ArticleBean>
+            var projectAdapter = HotProjectAdapter(projectList)
+            var recyclerView = holder.getView<RecyclerView>(R.id.itemProjectList)
+            recyclerView.run {
+                layoutManager = GridLayoutManager(context,2)
+                adapter = projectAdapter
+                projectAdapter.setOnItemClickListener { adapter, view, position ->
+
+                }
+            }
 
         }
 
@@ -89,7 +111,31 @@ class HomeCardAdapter(private var activity:FragmentActivity,views: MutableList<H
             position: Int,
             size: Int
         ) {
+            data?.run {
+                Glide.with(context).load(imagePath).into(holder!!.imageView!!)
+                holder.title!!.setText(title)
+            }
+        }
 
+    }
+
+    private class HotProjectAdapter(data: MutableList<ArticleBean>) :
+        BaseQuickAdapter<ArticleBean, BaseViewHolder>(R.layout.item_hot_project, data) {
+
+
+        override fun convert(holder: BaseViewHolder, item: ArticleBean) {
+            holder.setText(R.id.tvProjectTitle, item.title)
+            var projectImage = holder.getView<ImageView>(R.id.ivProjectImage)
+            var imageWidth = (DensityUtil.getWindowWidth(projectImage.context) - DensityUtil.dip2px(
+                projectImage.context,
+                64f
+            )) / 2
+            var lp = projectImage.layoutParams
+            lp.width = imageWidth
+            lp.height = imageWidth/2
+
+            projectImage.layoutParams = lp
+            Glide.with(context).load(item.envelopePic).into(projectImage)
         }
 
     }

@@ -31,7 +31,7 @@ open class BaseViewModel : ViewModel() {
 
     suspend fun <T : Any> executeResponseList(response: ResponseList<T>): ResultResponse<MutableList<T>> {
         return withContext(Dispatchers.IO) {
-            ResultResponse.SuccessEntity(response.data!!, "message")
+            ResultResponse.SuccessList(response.data!!, "message")
         }
     }
 

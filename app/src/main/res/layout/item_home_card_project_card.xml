@@ -15,7 +15,7 @@
             android:layout_height="50dp"
             android:layout_marginLeft="16dp"
             android:gravity="center_vertical"
-            android:text="热门文章"
+            android:text="热门项目"
             android:textColor="@color/text_title"
             android:textSize="16dp" />
 
@@ -25,7 +25,7 @@
             android:background="@color/line" />
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/itemCardList"
+            android:id="@+id/itemProjectList"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 

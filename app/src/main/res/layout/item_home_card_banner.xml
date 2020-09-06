@@ -27,9 +27,12 @@
         <com.youth.banner.Banner
             android:id="@+id/bannerArticle"
             android:layout_width="match_parent"
-            android:layout_height="120dp" />
+            android:layout_height="wrap_content" />
 
 
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="16dp" />
     </LinearLayout>
 
 

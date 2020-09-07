@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto" android:id="@+id/navi_onborad_fragment"
+    app:startDestination="@id/projectNaviFragment">
+
+    <fragment
+        android:id="@+id/projectNaviFragment"
+        android:name="com.mg.axechen.wanandroid.ui.guide.ProjectNaviFragment"
+        android:label="ProjectNaviFragment" >
+        <action
+            android:id="@+id/action_projectNaviFragment_to_weChatNaviFragment"
+            app:destination="@id/weChatNaviFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/weChatNaviFragment"
+        android:name="com.mg.axechen.wanandroid.ui.guide.WeChatNaviFragment"
+        android:label="WeChatNaviFragment" />
+</navigation>

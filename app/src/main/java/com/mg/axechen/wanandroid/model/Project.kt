@@ -35,6 +35,17 @@ data class ProjectBean(
     val zan: Int
 )
 
+data class ProjectKind(
+    val children: List<Any>,
+    val courseId: Int,
+    val id: Int,
+    val name: String,
+    val order: Int,
+    val parentChapterId: Int,
+    val userControlSetTop: Boolean,
+    val visible: Int
+)
+
 data class Tag(
     val name: String,
     val url: String

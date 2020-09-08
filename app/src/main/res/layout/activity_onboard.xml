@@ -7,13 +7,16 @@
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolBar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="?actionBarSize">
+
+
+    </androidx.appcompat.widget.Toolbar>
 
     <fragment
         android:name="com.mg.axechen.wanandroid.ui.guide.ProjectNaviFragment"
         android:layout_width="match_parent"
-        android:tag="ProjectNaviFragment"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:tag="ProjectNaviFragment" />
 
 
 </LinearLayout>

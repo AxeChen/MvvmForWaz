@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-<com.ruffian.library.widget.RLinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/llContent"
     android:layout_width="wrap_content"
     android:layout_height="50dp"
-    android:background="@color/white"
-    app:corner_radius="5dp">
+    android:layout_margin="5dp"
+    android:background="@color/white">
 
     <ImageView
         android:id="@+id/ivProjectImage"
@@ -24,4 +23,4 @@
         android:text="完整项目" />
 
 
-</com.ruffian.library.widget.RLinearLayout>
+</LinearLayout>

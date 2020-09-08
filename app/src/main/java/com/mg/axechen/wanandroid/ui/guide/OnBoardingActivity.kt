@@ -11,6 +11,7 @@ class OnBoardingActivity : BaseVMActivity<OnBoardViewModel>() {
     private fun initToolbar() {
         toolBar?.run {
             title = "猜你喜欢"
+            setBackgroundResource(R.color.white)
             setNavigationIcon(R.drawable.ic_arrow_back_black_24dp)
             setNavigationOnClickListener { finish() }
         }
@@ -18,7 +19,8 @@ class OnBoardingActivity : BaseVMActivity<OnBoardViewModel>() {
 
     override fun initView() {
         super.initView()
-        mImmersionBar.fitsSystemWindows(true).statusBarDarkFont(true, 0.2f)
+        mImmersionBar.fitsSystemWindows(true).statusBarColor(R.color.white)
+            .statusBarDarkFont(true, 0.2f)
             .init()
         initToolbar()
     }

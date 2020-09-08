@@ -1,7 +1,7 @@
 package com.mg.axechen.wanandroid.ui.guide
 
 import androidx.lifecycle.Observer
-import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.flexbox.FlexboxLayoutManager
 import com.mg.axechen.wanandroid.R
 import com.mg.axechen.wanandroid.base.mvvm.BaseVMFragment
 import com.mg.axechen.wanandroid.model.ProjectKind
@@ -22,9 +22,18 @@ class ProjectNaviFragment : BaseVMFragment<ProjectNaviViewModel>() {
     }
 
     private fun initRecyclerView() {
-        onBoardProject?.run {
-            layoutManager = LinearLayoutManager(requireContext())
+        rvList.run {
+            layoutManager = FlexboxLayoutManager(activity)
             adapter = listAdapter
+            listAdapter.setOnItemClickListener { adapter, view, position ->
+                var projectKind = projectKinds[position]
+                if (listAdapter.selectIndexs.contains(projectKind.id)) {
+                    listAdapter.selectIndexs.remove(projectKind.id)
+                } else {
+                    listAdapter.selectIndexs.add(projectKind.id)
+                }
+                listAdapter.notifyDataSetChanged()
+            }
         }
     }
 
@@ -32,9 +41,10 @@ class ProjectNaviFragment : BaseVMFragment<ProjectNaviViewModel>() {
         mViewModel.run {
             uiState.observe(this@ProjectNaviFragment, Observer {
                 it.projectList?.run {
-                    projectKinds.addAll(this)
-                    listAdapter.setList(projectKinds)
-                    listAdapter.notifyDataSetChanged()
+                    if (isNotEmpty()) {
+                        projectKinds.addAll(this)
+                        listAdapter.setList(projectKinds)
+                    }
                 }
             })
         }

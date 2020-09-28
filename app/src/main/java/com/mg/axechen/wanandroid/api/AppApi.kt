@@ -15,10 +15,19 @@ interface AppApi {
     @GET("banner/json")
     suspend fun getBannerList(): ResponseList<BannerBean>
 
-    @HTTP(path = "https://wanandroid.com/article/listproject/{page}/json", method = "GET")
+    @GET("article/listproject/{page}/json")
     suspend fun getHotProject(@Path("page") page: Int): ResponseEntity<ArticleListBean>
 
     @GET("project/tree/json")
-    suspend fun getProjectKind():ResponseList<ProjectKind>
+    suspend fun getProjectKind(): ResponseList<ProjectKind>
+
+    @GET("wxarticle/chapters/json")
+    suspend fun getWetChat(): ResponseList<ProjectKind>
+
+    @GET("article/list/{page}/json?cid={cid}")
+    suspend fun getArticleListByCid(
+        @Path("page") page: Int,
+        @Path("cid") cid: Int
+    ): ResponseList<ArticleListBean>
 
 }

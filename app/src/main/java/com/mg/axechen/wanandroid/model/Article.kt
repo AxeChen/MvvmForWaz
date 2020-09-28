@@ -1,5 +1,7 @@
 package com.mg.axechen.wanandroid.model
 
+import androidx.databinding.BaseObservable
+
 data class ArticleListBean(
     var curPage: Int,
     var datas: MutableList<ArticleBean>,
@@ -43,4 +45,6 @@ data class ArticleBean(
     val userId: Int,
     val visible: Int,
     val zan: Int
-)
+): BaseObservable() {
+
+}

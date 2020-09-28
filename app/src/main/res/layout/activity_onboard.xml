@@ -13,7 +13,7 @@
     </androidx.appcompat.widget.Toolbar>
 
     <fragment
-        android:name="com.mg.axechen.wanandroid.ui.guide.ProjectNaviFragment"
+        android:name="com.mg.axechen.wanandroid.ui.guide.WeChatNaviFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:tag="ProjectNaviFragment" />

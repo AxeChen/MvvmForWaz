@@ -10,24 +10,21 @@
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
-
-        <View
-            android:id="@+id/viewSpace"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/status_bar_height"
-            android:background="@color/colorPrimary" />
+        android:theme="@style/AppTheme.AppBarOverlay">
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolBar"
             android:layout_width="match_parent"
             android:layout_height="?actionBarSize"
-            app:layout_scrollFlags="scroll|enterAlways" />
+            android:gravity="center"
+            android:minHeight="?actionBarSize"
+            android:textAppearance="@style/TextAppearance.Widget.AppCompat.Toolbar.Title"
+            app:layout_scrollFlags="scroll|enterAlwaysCollapsed"/>
 
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/mainTabLayout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="?actionBarSize" />
 
 
     </com.google.android.material.appbar.AppBarLayout>

@@ -52,6 +52,6 @@ dependencies {
     api rootProject.ext.androidx["androidx.constraintlayout"]
     api rootProject.ext.androidx["androidx.cardview"]
     api rootProject.ext.androidx["android.material"]
-
+    api rootProject.ext.androidx["android.arch.work"]
 
 }

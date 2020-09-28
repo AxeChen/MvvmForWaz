@@ -43,7 +43,8 @@ data class ProjectKind(
     val order: Int,
     val parentChapterId: Int,
     val userControlSetTop: Boolean,
-    val visible: Int
+    val visible: Int,
+    val icon: Int
 )
 
 data class Tag(

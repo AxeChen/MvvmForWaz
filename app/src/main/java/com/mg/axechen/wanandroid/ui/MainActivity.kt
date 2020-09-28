@@ -1,18 +1,23 @@
 package com.mg.axechen.wanandroid.ui
 
+import android.util.Log
 import androidx.core.content.ContextCompat
-import androidx.core.content.res.ComplexColorCompat
-import androidx.core.view.get
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2
+import androidx.work.Data
+import androidx.work.OneTimeWorkRequest
+import androidx.work.WorkInfo
+import androidx.work.WorkManager
 import com.google.android.material.tabs.TabLayoutMediator
 import com.mg.axechen.wanandroid.R
 import com.mg.axechen.wanandroid.base.BaseActivity
 import com.mg.axechen.wanandroid.ui.collect.CollectFragment
+import com.mg.axechen.wanandroid.ui.follow.FollowFragment
 import com.mg.axechen.wanandroid.ui.home.HomeFragment
 import com.mg.axechen.wanandroid.ui.mine.MineFragment
-import com.mg.axechen.wanandroid.ui.project.ProjectFragment
+import com.mg.axechen.wanandroid.test.TestWork
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : BaseActivity() {
@@ -21,14 +26,15 @@ class MainActivity : BaseActivity() {
 
     override fun initView() {
         super.initView()
-        initViewPager()
         initToolBar()
+        initViewPager()
     }
 
     private fun initToolBar() {
         toolBar?.run {
             title = "热门"
             setTitleTextColor(ContextCompat.getColor(this@MainActivity, R.color.white))
+            setSupportActionBar(this)
         }
     }
 
@@ -68,7 +74,7 @@ class MainActivity : BaseActivity() {
     private fun setSelectIcon(selectPosition: Int) {
         when (selectPosition) {
             0 -> toolBar.title = "热点"
-            1 -> toolBar.title = "项目"
+            1 -> toolBar.title = "关注"
             2 -> toolBar.title = "收藏"
             3 -> toolBar.title = "我的"
         }
@@ -98,7 +104,7 @@ class MainActivity : BaseActivity() {
                 HomeFragment()
             }
             1 -> {
-                ProjectFragment()
+                FollowFragment()
             }
             2 -> {
                 CollectFragment()
@@ -109,10 +115,41 @@ class MainActivity : BaseActivity() {
             else -> {
                 HomeFragment()
             }
-
-
         }
     }
 
+    override fun initData() {
+        super.initData()
+
+        mImmersionBar.fitsSystemWindows(true).statusBarColor(R.color.colorPrimary)
+            .statusBarDarkFont(false, 0.2f)
+            .init()
+
+        testWork()
+    }
+
+
+    private fun testWork() {
+
+        var request = makeOneTimeWorkRequest()
+
+        WorkManager.getInstance().enqueue(request)
+
+        WorkManager.getInstance().getWorkInfoByIdLiveData(request.id).observe(this, Observer {
+            when (it.state) {
+                WorkInfo.State.SUCCEEDED -> {
+                    var getData = it.outputData
+                    Log.i("TestWork", getData.getString("result"))
+                }
+            }
+        })
+    }
+
+    private fun makeOneTimeWorkRequest(): OneTimeWorkRequest {
+        val inputData: Data = Data.Builder()
+            .putInt("page", 1)
+            .build()
+        return OneTimeWorkRequest.Builder(TestWork::class.java).setInputData(inputData).build()
+    }
 
 }

@@ -18,5 +18,9 @@ class ArticleRepository {
         return api.getBannerList()
     }
 
+    suspend fun getArticleByCid(page: Int, cid: Int): ResponseList<ArticleListBean> {
+        return api.getArticleListByCid(page, cid)
+    }
+
 
 }

@@ -45,6 +45,14 @@ data class ArticleBean(
     val userId: Int,
     val visible: Int,
     val zan: Int
-): BaseObservable() {
+)
 
-}
+
+data class HotWord(
+    var id: Int,
+    var link: String,
+    var name: String,
+    var order: Int,
+    var visible: Int
+)
+

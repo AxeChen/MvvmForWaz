@@ -6,7 +6,6 @@
     android:layout_height="match_parent"
     tools:context=".ui.MainActivity">
 
-
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -19,7 +18,7 @@
             android:gravity="center"
             android:minHeight="?actionBarSize"
             android:textAppearance="@style/TextAppearance.Widget.AppCompat.Toolbar.Title"
-            app:layout_scrollFlags="scroll|enterAlwaysCollapsed"/>
+            app:layout_scrollFlags="scroll|enterAlwaysCollapsed" />
 
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/mainTabLayout"
@@ -29,12 +28,10 @@
 
     </com.google.android.material.appbar.AppBarLayout>
 
-
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/mainViewPager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior" />
-
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

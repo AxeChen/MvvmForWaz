@@ -3,9 +3,7 @@ package com.mg.axechen.wanandroid.api
 import com.mg.axechen.wanandroid.api.response.ResponseEntity
 import com.mg.axechen.wanandroid.api.response.ResponseList
 import com.mg.axechen.wanandroid.model.*
-import retrofit2.http.GET
-import retrofit2.http.HTTP
-import retrofit2.http.Path
+import retrofit2.http.*
 
 interface AppApi {
 
@@ -30,4 +28,12 @@ interface AppApi {
         @Path("cid") cid: Int
     ): ResponseList<ArticleListBean>
 
+    @POST("article/query/{page}/json")
+    suspend fun searchArticle(
+        @Path("page") page: Int,
+        @Query("k") k: String
+    ): ResponseEntity<ArticleListBean>
+
+    @GET("hotkey/json")
+    suspend fun hotWords(): ResponseList<HotWord>
 }

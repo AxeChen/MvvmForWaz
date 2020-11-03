@@ -7,10 +7,14 @@ object ApiManager {
 
     fun getApiService(): AppApi {
         val okHttpClient = RetrofitHelper.buildOkHttpClient()
-
         if (mApi == null) {
-            mApi =
-                RetrofitHelper.buildRetrofit(getBaseUrl(), okHttpClient).create(AppApi::class.java)
+            synchronized(AppApi::class.java) {
+                if (mApi == null) {
+                    mApi =
+                        RetrofitHelper.buildRetrofit(getBaseUrl(), okHttpClient)
+                            .create(AppApi::class.java)
+                }
+            }
         }
         return mApi!!
     }

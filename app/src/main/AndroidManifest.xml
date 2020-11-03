@@ -22,6 +22,8 @@
         <activity android:name=".ui.guide.OnBoardingActivity">
 
         </activity>
+
+        <activity android:name=".ui.search.SearchActivity" />
     </application>
 
 </manifest>

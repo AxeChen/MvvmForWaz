@@ -1,6 +1,8 @@
 package com.mg.axechen.wanandroid.ui
 
 import android.util.Log
+import android.view.Menu
+import android.view.MenuItem
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -11,6 +13,7 @@ import androidx.work.OneTimeWorkRequest
 import androidx.work.WorkInfo
 import androidx.work.WorkManager
 import com.google.android.material.tabs.TabLayoutMediator
+import com.mg.axechen.libcommon.startKtxActivity
 import com.mg.axechen.wanandroid.R
 import com.mg.axechen.wanandroid.base.BaseActivity
 import com.mg.axechen.wanandroid.ui.collect.CollectFragment
@@ -18,6 +21,7 @@ import com.mg.axechen.wanandroid.ui.follow.FollowFragment
 import com.mg.axechen.wanandroid.ui.home.HomeFragment
 import com.mg.axechen.wanandroid.ui.mine.MineFragment
 import com.mg.axechen.wanandroid.test.TestWork
+import com.mg.axechen.wanandroid.ui.search.SearchActivity
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : BaseActivity() {
@@ -120,36 +124,45 @@ class MainActivity : BaseActivity() {
 
     override fun initData() {
         super.initData()
-
         mImmersionBar.fitsSystemWindows(true).statusBarColor(R.color.colorPrimary)
             .statusBarDarkFont(false, 0.2f)
             .init()
-
-        testWork()
     }
 
 
-    private fun testWork() {
+//    private fun testWork() {
+//        var request = makeOneTimeWorkRequest()
+//        WorkManager.getInstance().enqueue(request)
+//        WorkManager.getInstance().getWorkInfoByIdLiveData(request.id).observe(this, Observer {
+//            when (it.state) {
+//                WorkInfo.State.SUCCEEDED -> {
+//                    var getData = it.outputData
+//                    Log.i("TestWork", getData.getString("result"))
+//                }
+//            }
+//        })
+//    }
+//
+//    private fun makeOneTimeWorkRequest(): OneTimeWorkRequest {
+//        val inputData: Data = Data.Builder()
+//            .putInt("page", 1)
+//            .build()
+//        return OneTimeWorkRequest.Builder(TestWork::class.java).setInputData(inputData).build()
+//    }
 
-        var request = makeOneTimeWorkRequest()
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu_main, menu)
+        return super.onCreateOptionsMenu(menu)
+    }
 
-        WorkManager.getInstance().enqueue(request)
-
-        WorkManager.getInstance().getWorkInfoByIdLiveData(request.id).observe(this, Observer {
-            when (it.state) {
-                WorkInfo.State.SUCCEEDED -> {
-                    var getData = it.outputData
-                    Log.i("TestWork", getData.getString("result"))
-                }
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item?.itemId) {
+            R.id.actionSearch -> {
+                startKtxActivity<SearchActivity>()
             }
-        })
-    }
+        }
 
-    private fun makeOneTimeWorkRequest(): OneTimeWorkRequest {
-        val inputData: Data = Data.Builder()
-            .putInt("page", 1)
-            .build()
-        return OneTimeWorkRequest.Builder(TestWork::class.java).setInputData(inputData).build()
+        return super.onOptionsItemSelected(item)
     }
 
 }

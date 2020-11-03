@@ -1,27 +1,36 @@
 package com.mg.axechen.wanandroid.ui.search
 
+import android.service.autofill.FillEventHistory
 import android.view.inputmethod.EditorInfo
 import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
+import com.mg.axechen.libcommon.KeyBoardUtil
 import com.mg.axechen.libcommon.toast
 import com.mg.axechen.wanandroid.R
 import com.mg.axechen.wanandroid.base.impl.CustomTextWatcher
 import com.mg.axechen.wanandroid.base.mvvm.BaseVMActivity
+import com.mg.axechen.wanandroid.cache.AppCache
 import com.mg.axechen.wanandroid.model.ArticleListBean
 import com.mg.axechen.wanandroid.model.HotWord
 import kotlinx.android.synthetic.main.activity_search.*
+import java.lang.Exception
+import java.util.*
 
 class SearchActivity : BaseVMActivity<SearchViewModel>() {
 
     override fun setLayoutId(): Int = R.layout.activity_search
 
     private val data: MutableList<SearchViewType> = mutableListOf()
+    private val historySearch: MutableList<String> = mutableListOf()
+    private val mHotWords: MutableList<HotWord> = mutableListOf()
     private var page = 0
     private var queryText: String = ""
-
     private var showArticle = false
+    private var gson = Gson()
 
     private val listAdapter by lazy {
         SearchAdapter(data)
@@ -40,6 +49,7 @@ class SearchActivity : BaseVMActivity<SearchViewModel>() {
         ivSearchClose.setOnClickListener {
             showArticle = false
             editSearch.setText("")
+            getHotWords()
         }
     }
 
@@ -48,11 +58,7 @@ class SearchActivity : BaseVMActivity<SearchViewModel>() {
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 super.onTextChanged(s, start, before, count)
                 var text = s.toString()
-                if (text.isEmpty()) {
-                    ivSearchClose.isVisible = false
-                } else {
-                    ivSearchClose.isVisible = true
-                }
+                ivSearchClose.isVisible = text.isNotEmpty()
             }
         })
 
@@ -63,10 +69,7 @@ class SearchActivity : BaseVMActivity<SearchViewModel>() {
                     toast("请输入搜索的内容！")
                     return@setOnEditorActionListener false
                 }
-                showArticle = true
-                queryText = searchText
-                searchArticle(queryText)
-
+                startSearch(searchText)
             }
             false
         }
@@ -81,7 +84,24 @@ class SearchActivity : BaseVMActivity<SearchViewModel>() {
                 page++
                 searchArticle(queryText)
             }
+            listAdapter.apply {
+                flowItemClickListener = object : SearchAdapter.FlowItemClickListener {
+                    override fun itemClick(item: String) {
+                        page = 0
+                        editSearch.setText(queryText)
+                        startSearch(item)
+                    }
+                }
+            }
         }
+    }
+
+    private fun startSearch(item: String) {
+        searchArticle(item)
+        queryText = item
+        addHistory(queryText)
+        showArticle = true
+        KeyBoardUtil.hideSoftInput(this, editSearch)
     }
 
     override fun initData() {
@@ -126,16 +146,77 @@ class SearchActivity : BaseVMActivity<SearchViewModel>() {
     }
 
     private fun buildHotWord(hotWords: MutableList<HotWord>) {
-        data.add(SearchViewType(SearchViewType.VIEW_TYPE_HOT_WORD_SELECTION, ""))
-        data.add(SearchViewType(SearchViewType.VIEW_TYPE_HOT_WORD, hotWords))
+        if (hotWords.isNotEmpty()) {
+            mHotWords.addAll(hotWords)
+            data.add(SearchViewType(SearchViewType.VIEW_TYPE_HOT_WORD_SELECTION, ""))
+            data.add(SearchViewType(SearchViewType.VIEW_TYPE_HOT_WORD, hotWords))
+        }
+        buildHistory()
+    }
+
+    private fun addHistory(history: String) {
+        var historyList = getHistoryList()
+        if (historyList == null) {
+            historyList = mutableListOf()
+        }
+        historyList.run {
+            if (this.contains(history)) {
+                remove(history)
+            }
+            add(history)
+        }
+        // 最多十条数据
+        if (historyList.size > 10) {
+            historyList.removeAt(historyList.size - 1)
+        }
+
+        saveHistory(gson.toJson(historyList))
+    }
+
+    private fun removeHistory(history: String) {
+        var historyList = getHistoryList()
+        historyList?.run {
+            if (this.contains(history)) {
+                remove(history)
+            }
+        }
+        saveHistory(gson.toJson(historyList))
+    }
+
+    private fun cleanHistory() {
+        AppCache.searchHistoryCache = ""
+    }
+
+    private fun saveHistory(historyString: String) {
+        AppCache.searchHistoryCache = historyString
+    }
+
+    private fun getHistoryList(): MutableList<String>? {
+        var searchHistory = AppCache.searchHistoryCache
+        if (searchHistory.isNotEmpty()) {
+            try {
+                var historySearch: MutableList<String> =
+                    gson.fromJson(searchHistory, object : TypeToken<MutableList<String>>() {}.type)
+                return historySearch
+            } catch (e: Exception) {
+                return null
+            }
+        }
+        return null
+    }
+
+    private fun buildHistory() {
+        var searchHistory = getHistoryList()
+        searchHistory?.run {
+            if (isNotEmpty()) {
+                data.add(SearchViewType(SearchViewType.VIEW_TYPE_HISTORY_SELECTION, ""))
+                data.add(SearchViewType(SearchViewType.VIEW_TYPE_HISTORY_ITEM, this))
+            }
+        }
         listAdapter.setList(data)
         listAdapter.notifyDataSetChanged()
         listAdapter.loadMoreModule.loadMoreComplete()
         listAdapter.loadMoreModule.loadMoreEnd(true)
-    }
-
-    private fun buildHistory() {
-
     }
 
     private fun searchArticle(queryText: String) {
@@ -146,7 +227,14 @@ class SearchActivity : BaseVMActivity<SearchViewModel>() {
     }
 
     private fun getHotWords() {
-        mViewModel.getHotWord()
+        if (mHotWords.isEmpty()) {
+            mViewModel.getHotWord()
+        } else {
+            data.clear()
+            data.add(SearchViewType(SearchViewType.VIEW_TYPE_HOT_WORD_SELECTION, ""))
+            data.add(SearchViewType(SearchViewType.VIEW_TYPE_HOT_WORD, mHotWords))
+            buildHistory()
+        }
     }
 
 }

@@ -1,17 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="50dp"
     android:layout_marginBottom="5dp"
-    android:orientation="vertical">
+    android:layout_height="50dp">
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
         android:layout_marginLeft="16dp"
         android:gravity="center_vertical"
-        android:text="热门搜索"
+        android:layout_alignParentBottom="true"
+        android:text="历史记录"
         android:textColor="@color/text_title"
         android:textSize="16dp" />
 

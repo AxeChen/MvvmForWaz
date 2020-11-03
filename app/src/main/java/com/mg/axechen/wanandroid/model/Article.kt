@@ -1,6 +1,5 @@
 package com.mg.axechen.wanandroid.model
 
-import androidx.databinding.BaseObservable
 
 data class ArticleListBean(
     var curPage: Int,
@@ -55,4 +54,5 @@ data class HotWord(
     var order: Int,
     var visible: Int
 )
+
 

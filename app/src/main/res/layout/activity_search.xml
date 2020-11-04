@@ -10,6 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="?actionBarSize"
         android:background="@color/white"
+        android:elevation="2dp"
         app:navigationIcon="@drawable/ic_arrow_back_black_24dp">
 
         <RelativeLayout
@@ -32,10 +33,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:imeOptions="actionSearch"
                 android:layout_toLeftOf="@+id/ivSearchClose"
                 android:background="@null"
                 android:hint="搜索"
+                android:imeOptions="actionSearch"
                 android:maxLines="1"
                 android:singleLine="true" />
 

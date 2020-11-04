@@ -36,7 +36,6 @@ class MainActivity : BaseActivity() {
 
     private fun initToolBar() {
         toolBar?.run {
-            title = "热门"
             setTitleTextColor(ContextCompat.getColor(this@MainActivity, R.color.white))
             setSupportActionBar(this)
         }
@@ -60,9 +59,19 @@ class MainActivity : BaseActivity() {
         }
 
         TabLayoutMediator(mainTabLayout, mainViewPager) { tab, position ->
-            tab.setIcon(setTabIcon(position))
+            tab.text = setTabTitle(position)
         }.attach()
 
+    }
+
+    private fun setTabTitle(position: Int): String {
+        return when (position) {
+            0 -> "热点"
+            1 -> "关注"
+            2 -> "收藏"
+            3 -> "我的"
+            else -> ""
+        }
     }
 
     private fun setTabIcon(position: Int): Int {
@@ -76,12 +85,12 @@ class MainActivity : BaseActivity() {
     }
 
     private fun setSelectIcon(selectPosition: Int) {
-        when (selectPosition) {
-            0 -> toolBar.title = "热点"
-            1 -> toolBar.title = "关注"
-            2 -> toolBar.title = "收藏"
-            3 -> toolBar.title = "我的"
-        }
+//        when (selectPosition) {
+//            0 -> toolBar.title = "热点"
+//            1 -> toolBar.title = "关注"
+//            2 -> toolBar.title = "收藏"
+//            3 -> toolBar.title = "我的"
+//        }
 
         for (it in 0 until mainTabLayout.tabCount) {
             if (it == selectPosition) {

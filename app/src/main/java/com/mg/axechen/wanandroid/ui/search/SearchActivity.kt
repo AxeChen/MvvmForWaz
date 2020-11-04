@@ -1,36 +1,40 @@
 package com.mg.axechen.wanandroid.ui.search
 
-import android.service.autofill.FillEventHistory
 import android.view.inputmethod.EditorInfo
-import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
+import com.kingja.loadsir.core.LoadService
+import com.kingja.loadsir.core.LoadSir
 import com.mg.axechen.libcommon.KeyBoardUtil
+import com.mg.axechen.libcommon.startKtxActivity
 import com.mg.axechen.libcommon.toast
 import com.mg.axechen.wanandroid.R
 import com.mg.axechen.wanandroid.base.impl.CustomTextWatcher
+import com.mg.axechen.wanandroid.base.load.LoadingCallback
+import com.mg.axechen.wanandroid.base.load.NoDataCallBack
 import com.mg.axechen.wanandroid.base.mvvm.BaseVMActivity
+import com.mg.axechen.wanandroid.base.webview.WebViewActivity
 import com.mg.axechen.wanandroid.cache.AppCache
+import com.mg.axechen.wanandroid.model.ArticleBean
 import com.mg.axechen.wanandroid.model.ArticleListBean
 import com.mg.axechen.wanandroid.model.HotWord
 import kotlinx.android.synthetic.main.activity_search.*
-import java.lang.Exception
-import java.util.*
 
 class SearchActivity : BaseVMActivity<SearchViewModel>() {
 
     override fun setLayoutId(): Int = R.layout.activity_search
 
     private val data: MutableList<SearchViewType> = mutableListOf()
-    private val historySearch: MutableList<String> = mutableListOf()
     private val mHotWords: MutableList<HotWord> = mutableListOf()
     private var page = 0
     private var queryText: String = ""
     private var showArticle = false
     private var gson = Gson()
+    private var loadService: LoadService<RecyclerView>? = null
 
     private val listAdapter by lazy {
         SearchAdapter(data)
@@ -46,6 +50,7 @@ class SearchActivity : BaseVMActivity<SearchViewModel>() {
         }
         initSearchEditText()
         initRecycler()
+        initLoadStatus()
         ivSearchClose.setOnClickListener {
             showArticle = false
             editSearch.setText("")
@@ -84,23 +89,43 @@ class SearchActivity : BaseVMActivity<SearchViewModel>() {
                 page++
                 searchArticle(queryText)
             }
+            listAdapter.setOnItemClickListener { adapter, view, position ->
+                var viewType = data[position]
+                if (viewType.itemType == SearchViewType.VIEW_TYPE_SEARCH_ARTICLE) {
+                    var articleBean = viewType.item as ArticleBean
+                    startKtxActivity<WebViewActivity>(
+                        values = mutableListOf(
+                            WebViewActivity.TITLE to articleBean.title,
+                            WebViewActivity.URL to articleBean.link
+                        )
+                    )
+                }
+
+            }
             listAdapter.apply {
                 flowItemClickListener = object : SearchAdapter.FlowItemClickListener {
                     override fun itemClick(item: String) {
                         page = 0
-                        editSearch.setText(queryText)
                         startSearch(item)
+                        editSearch.setText(queryText)
                     }
                 }
             }
         }
     }
 
+    private fun initLoadStatus() {
+        val loadSir = LoadSir.Builder().addCallback(LoadingCallback())
+            .addCallback(NoDataCallBack()).build()
+        loadService = loadSir.register(rvSearchList) as LoadService<RecyclerView>?
+    }
+
     private fun startSearch(item: String) {
+        loadService?.showCallback(LoadingCallback::class.java)
+        showArticle = true
         searchArticle(item)
         queryText = item
         addHistory(queryText)
-        showArticle = true
         KeyBoardUtil.hideSoftInput(this, editSearch)
     }
 
@@ -127,6 +152,7 @@ class SearchActivity : BaseVMActivity<SearchViewModel>() {
         if (articleListBean.datas.isEmpty()) {
             if (page == 0) {
                 //显示没有数据的页面
+                loadService?.showCallback(NoDataCallBack::class.java)
             } else {
                 // 显示没有更多的数据
                 listAdapter.loadMoreModule.loadMoreComplete()
@@ -135,6 +161,7 @@ class SearchActivity : BaseVMActivity<SearchViewModel>() {
         } else {
             if (page == 0) {
                 // 清除掉历史记录和其他
+                loadService?.showSuccess()
                 data.clear()
             }
             articleListBean.datas.forEach {
@@ -206,6 +233,7 @@ class SearchActivity : BaseVMActivity<SearchViewModel>() {
     }
 
     private fun buildHistory() {
+        loadService?.showSuccess()
         var searchHistory = getHistoryList()
         searchHistory?.run {
             if (isNotEmpty()) {

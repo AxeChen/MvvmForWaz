@@ -9,7 +9,7 @@ import com.mg.axechen.wanandroid.model.ArticleBean
 
 class ArticleActivity : BaseActivity() {
 
-    override fun setLayoutId(): Int = R.layout.activity_article2
+    override fun setLayoutId(): Int = R.layout.activity_article
 
     override fun initData() {
         super.initData()

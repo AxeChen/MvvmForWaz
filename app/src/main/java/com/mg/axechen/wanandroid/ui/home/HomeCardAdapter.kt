@@ -30,6 +30,8 @@ class HomeCardAdapter(
 ) :
     BaseMultiItemQuickAdapter<HomeCardViewType, BaseViewHolder>(views) {
 
+    var homeItemClickListener: HomeItemClickListener? = null
+
     init {
         addItemType(HomeCardViewType.VIEW_CARD_REWARD, R.layout.item_home_card_about_app)
         addItemType(HomeCardViewType.VIEW_TYPE_HOT_ARTICLE, R.layout.item_home_card_hot_article)
@@ -47,8 +49,12 @@ class HomeCardAdapter(
                 layoutManager = LinearLayoutManager(recyclerView.context)
                 var articleAdapter = HotArticleAdapter(articles)
                 adapter = articleAdapter
+                isNestedScrollingEnabled = false
                 articleAdapter.setOnItemClickListener { adapter, view, position ->
                     // 跳转到WebView
+                    homeItemClickListener?.run {
+                        articleClickListener(articles[position])
+                    }
                 }
             }
         } else if (item.itemType == HomeCardViewType.VIEW_TYPE_BANNER) {
@@ -65,10 +71,13 @@ class HomeCardAdapter(
             var projectAdapter = HotProjectAdapter(projectList)
             var recyclerView = holder.getView<RecyclerView>(R.id.itemProjectList)
             recyclerView.run {
-                layoutManager = GridLayoutManager(context,2)
+                layoutManager = GridLayoutManager(context, 2)
+                isNestedScrollingEnabled = false
                 adapter = projectAdapter
                 projectAdapter.setOnItemClickListener { adapter, view, position ->
-
+                    homeItemClickListener?.run {
+                        articleClickListener(projectList[position])
+                    }
                 }
             }
 
@@ -132,7 +141,7 @@ class HomeCardAdapter(
             )) / 2
             var lp = projectImage.layoutParams
             lp.width = imageWidth
-            lp.height = imageWidth/2
+            lp.height = imageWidth / 2
 
             projectImage.layoutParams = lp
             Glide.with(context).load(item.envelopePic).into(projectImage)
@@ -152,4 +161,8 @@ class HomeCardAdapter(
 
     }
 
+
+    interface HomeItemClickListener {
+        fun articleClickListener(articleBean: ArticleBean)
+    }
 }

@@ -2,11 +2,12 @@ package com.mg.axechen.wanandroid.ui.home
 
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.mg.axechen.libcommon.startKtxActivity
 import com.mg.axechen.wanandroid.R
 import com.mg.axechen.wanandroid.base.mvvm.BaseVMFragment
+import com.mg.axechen.wanandroid.base.webview.WebViewActivity
 import com.mg.axechen.wanandroid.model.ArticleBean
 import com.mg.axechen.wanandroid.model.BannerBean
-import com.mg.axechen.wanandroid.model.ProjectBean
 import kotlinx.android.synthetic.main.fragment_home.*
 
 class HomeFragment : BaseVMFragment<HomeFragmentViewModel>() {
@@ -26,6 +27,18 @@ class HomeFragment : BaseVMFragment<HomeFragmentViewModel>() {
         homeRecyclerView.run {
             layoutManager = LinearLayoutManager(requireContext())
             adapter = cardAdapter
+            cardAdapter.apply {
+                homeItemClickListener = object :HomeCardAdapter.HomeItemClickListener{
+                    override fun articleClickListener(articleBean: ArticleBean) {
+                        startKtxActivity<WebViewActivity>(
+                            values = mutableListOf(
+                                WebViewActivity.TITLE to articleBean.title,
+                                WebViewActivity.URL to articleBean.link
+                            )
+                        )
+                    }
+                }
+            }
         }
     }
 

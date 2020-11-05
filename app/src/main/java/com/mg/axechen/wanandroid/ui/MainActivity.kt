@@ -1,17 +1,13 @@
 package com.mg.axechen.wanandroid.ui
 
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2
-import androidx.work.Data
-import androidx.work.OneTimeWorkRequest
-import androidx.work.WorkInfo
-import androidx.work.WorkManager
+import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import com.mg.axechen.libcommon.startKtxActivity
 import com.mg.axechen.wanandroid.R
@@ -20,7 +16,6 @@ import com.mg.axechen.wanandroid.ui.collect.CollectFragment
 import com.mg.axechen.wanandroid.ui.follow.FollowFragment
 import com.mg.axechen.wanandroid.ui.home.HomeFragment
 import com.mg.axechen.wanandroid.ui.mine.MineFragment
-import com.mg.axechen.wanandroid.test.TestWork
 import com.mg.axechen.wanandroid.ui.search.SearchActivity
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -46,7 +41,6 @@ class MainActivity : BaseActivity() {
             offscreenPageLimit = 4
             adapter = object : FragmentStateAdapter(this@MainActivity) {
                 override fun getItemCount(): Int = 4
-
                 override fun createFragment(position: Int): Fragment = showFragment(position)
             }
 
@@ -58,8 +52,39 @@ class MainActivity : BaseActivity() {
             })
         }
 
+        mainTabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
+            override fun onTabReselected(tab: TabLayout.Tab?) {
+            }
+
+            override fun onTabUnselected(tab: TabLayout.Tab?) {
+                var textView = tab?.customView?.findViewById<TextView>(R.id.tvTabText)
+                textView?.setTextColor(
+                    ContextCompat.getColor(
+                        this@MainActivity,
+                        R.color.line
+                    )
+                )
+                textView?.textSize = 16f
+            }
+
+            override fun onTabSelected(tab: TabLayout.Tab?) {
+                var textView = tab?.customView?.findViewById<TextView>(R.id.tvTabText)
+                textView?.setTextColor(
+                    ContextCompat.getColor(
+                        this@MainActivity,
+                        R.color.white
+                    )
+                )
+                textView?.textSize = 20f
+
+            }
+
+        })
         TabLayoutMediator(mainTabLayout, mainViewPager) { tab, position ->
-            tab.text = setTabTitle(position)
+            var tabView = layoutInflater.inflate(R.layout.home_tab_text, null)
+            var tabText = tabView.findViewById<TextView>(R.id.tvTabText)
+            tabText.text = setTabTitle(position)
+            tab.customView = tabView
         }.attach()
 
     }
@@ -74,23 +99,7 @@ class MainActivity : BaseActivity() {
         }
     }
 
-    private fun setTabIcon(position: Int): Int {
-        return when (position) {
-            0 -> R.drawable.ic_main_tab_article
-            1 -> R.drawable.ic_main_tab_project
-            2 -> R.drawable.ic_main_tab_collect
-            3 -> R.drawable.ic_main_tab_mine
-            else -> R.drawable.ic_main_tab_article
-        }
-    }
-
     private fun setSelectIcon(selectPosition: Int) {
-//        when (selectPosition) {
-//            0 -> toolBar.title = "热点"
-//            1 -> toolBar.title = "关注"
-//            2 -> toolBar.title = "收藏"
-//            3 -> toolBar.title = "我的"
-//        }
 
         for (it in 0 until mainTabLayout.tabCount) {
             if (it == selectPosition) {

@@ -38,6 +38,27 @@ class HomeFragment : BaseVMFragment<HomeFragmentViewModel>() {
                         )
                     }
                 }
+
+                setOnItemChildClickListener { adapter, view, position ->
+                    when(view.id){
+                        R.id.rtToMore->{
+                            startKtxActivity<WebViewActivity>(
+                                values = mutableListOf(
+                                    WebViewActivity.TITLE to "关于玩Android",
+                                    WebViewActivity.URL to "https://www.wanandroid.com/index"
+                                )
+                            )
+                        }
+                        R.id.rtToAuthor->{
+                            startKtxActivity<WebViewActivity>(
+                                values = mutableListOf(
+                                    WebViewActivity.TITLE to "关于作者",
+                                    WebViewActivity.URL to "https://www.jianshu.com/u/05f7d21f41ed"
+                                )
+                            )
+                        }
+                    }
+                }
             }
         }
     }
@@ -103,7 +124,9 @@ class HomeFragment : BaseVMFragment<HomeFragmentViewModel>() {
     }
 
     private fun buildData(articles: MutableList<ArticleBean>) {
-        views.add(HomeCardViewType("showArticle", HomeCardViewType.VIEW_CARD_REWARD))
+        views.add(HomeCardViewType("showArticle", HomeCardViewType.VIEW_CARD_ABOUT_APP))
+        views.add(HomeCardViewType("showArticle", HomeCardViewType.VIEW_CARD_DEVELOPER))
+        views.add(HomeCardViewType("showArticle", HomeCardViewType.VIEW_CARD_SIGN))
         var showArticle: MutableList<ArticleBean> = mutableListOf()
         for (it in 0 until 5) {
             showArticle.add(articles[it])

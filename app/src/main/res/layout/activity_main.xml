@@ -12,9 +12,9 @@
         android:layout_width="match_parent"
         android:layout_height="?actionBarSize"
         android:background="@color/colorPrimary"
+        android:elevation="2dp"
         android:gravity="center"
         android:minHeight="?actionBarSize"
-        android:elevation="2dp"
         android:textAppearance="@style/TextAppearance.Widget.AppCompat.Toolbar.Title"
         app:layout_scrollFlags="scroll|enterAlwaysCollapsed">
 
@@ -28,6 +28,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="?actionBarSize"
                 app:tabIndicatorHeight="0dp"
+                app:tabSelectedTextColor="@color/white"
+                app:tabTextColor="@color/line"
                 app:tabMaxWidth="200dp"
                 app:tabMinWidth="20dp"
                 app:tabTextAppearance="@style/TabTextTitleStyle" />

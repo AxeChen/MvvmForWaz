@@ -8,6 +8,7 @@
     <color name="green_38875f">#38875F</color>
 
     <color name="line">#DDDDDD</color>
+    <color name="common_bg">#F3F3F3</color>
 
     <color name="text_primary">@color/colorPrimary</color>
     <color name="text_title">#333333</color>

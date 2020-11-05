@@ -9,7 +9,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="vertical">o'me
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -21,7 +21,7 @@
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="16dp"
                 android:gravity="center_vertical"
-                android:text="关于本应用"
+                android:text="关于开发者"
                 android:textColor="@color/text_title"
                 android:textSize="16dp" />
 
@@ -36,7 +36,6 @@
 
         </RelativeLayout>
 
-
         <View
             android:layout_width="match_parent"
             android:layout_height="1px"
@@ -47,7 +46,7 @@
             android:layout_height="100dp"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="20dp"
-            android:src="@mipmap/ic_home_card_app_info" />
+            android:src="@mipmap/ic_home_card_user_info" />
 
         <TextView
             android:layout_width="match_parent"
@@ -56,12 +55,12 @@
             android:layout_marginRight="16dp"
             android:gravity="center"
             android:layout_marginTop="10dp"
-            android:text="玩安是一个每日推荐20~30篇Android优质文章的站点，提供Android常用工具和常用网站,并以知识体系的形式展现所有的文章分类。"
+            android:text="我是AxeChen，目前在长沙工作，专注Android开发。"
             android:textColor="@color/text_content"
             android:textSize="16dp" />
 
         <com.ruffian.library.widget.RTextView
-            android:id="@+id/rtToMore"
+            android:id="@+id/rtToAuthor"
             android:layout_width="100dp"
             android:layout_height="40dp"
             android:layout_gravity="center_horizontal"

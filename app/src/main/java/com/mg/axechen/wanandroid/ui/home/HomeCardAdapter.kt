@@ -33,10 +33,13 @@ class HomeCardAdapter(
     var homeItemClickListener: HomeItemClickListener? = null
 
     init {
-        addItemType(HomeCardViewType.VIEW_CARD_REWARD, R.layout.item_home_card_about_app)
+        addItemType(HomeCardViewType.VIEW_CARD_ABOUT_APP, R.layout.item_home_card_about_app)
         addItemType(HomeCardViewType.VIEW_TYPE_HOT_ARTICLE, R.layout.item_home_card_hot_article)
         addItemType(HomeCardViewType.VIEW_TYPE_BANNER, R.layout.item_home_card_banner)
         addItemType(HomeCardViewType.VIEW_TYPE_HOT_PROJECT, R.layout.item_home_card_project_card)
+        addItemType(HomeCardViewType.VIEW_CARD_DEVELOPER, R.layout.item_home_card_about_author)
+        addItemType(HomeCardViewType.VIEW_CARD_SIGN, R.layout.item_home_card_sgin)
+        addChildClickViewIds(R.id.rtToMore,R.id.rtToAuthor)
     }
 
 

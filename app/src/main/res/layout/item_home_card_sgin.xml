@@ -21,7 +21,7 @@
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="16dp"
                 android:gravity="center_vertical"
-                android:text="关于本应用"
+                android:text="加入玩安"
                 android:textColor="@color/text_title"
                 android:textSize="16dp" />
 
@@ -47,16 +47,16 @@
             android:layout_height="100dp"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="20dp"
-            android:src="@mipmap/ic_home_card_app_info" />
+            android:src="@mipmap/ic_home_card_sgin" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="16dp"
+            android:layout_marginTop="10dp"
             android:layout_marginRight="16dp"
             android:gravity="center"
-            android:layout_marginTop="10dp"
-            android:text="玩安是一个每日推荐20~30篇Android优质文章的站点，提供Android常用工具和常用网站,并以知识体系的形式展现所有的文章分类。"
+            android:text="加入玩安，为安卓开发社区添砖加瓦！"
             android:textColor="@color/text_content"
             android:textSize="16dp" />
 
@@ -68,10 +68,20 @@
             android:layout_marginTop="10dp"
             android:background="@color/colorPrimary"
             android:gravity="center"
-            android:text="了解更多"
+            android:text="注册玩安"
             android:textColor="@color/white"
             android:textSize="14dp"
             android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tvToLogin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="10dp"
+            android:text="已有账号，点击登陆"
+            android:textColor="@color/colorPrimary"
+            android:textSize="12dp" />
 
         <View
             android:layout_width="wrap_content"

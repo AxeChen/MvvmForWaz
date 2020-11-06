@@ -1,5 +1,6 @@
 package com.mg.axechen.wanandroid.ui.home
 
+import android.os.Handler
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.mg.axechen.libcommon.startKtxActivity
@@ -28,7 +29,7 @@ class HomeFragment : BaseVMFragment<HomeFragmentViewModel>() {
             layoutManager = LinearLayoutManager(requireContext())
             adapter = cardAdapter
             cardAdapter.apply {
-                homeItemClickListener = object :HomeCardAdapter.HomeItemClickListener{
+                homeItemClickListener = object : HomeCardAdapter.HomeItemClickListener {
                     override fun articleClickListener(articleBean: ArticleBean) {
                         startKtxActivity<WebViewActivity>(
                             values = mutableListOf(
@@ -40,8 +41,8 @@ class HomeFragment : BaseVMFragment<HomeFragmentViewModel>() {
                 }
 
                 setOnItemChildClickListener { adapter, view, position ->
-                    when(view.id){
-                        R.id.rtToMore->{
+                    when (view.id) {
+                        R.id.rtToMore -> {
                             startKtxActivity<WebViewActivity>(
                                 values = mutableListOf(
                                     WebViewActivity.TITLE to "关于玩Android",
@@ -49,13 +50,18 @@ class HomeFragment : BaseVMFragment<HomeFragmentViewModel>() {
                                 )
                             )
                         }
-                        R.id.rtToAuthor->{
+                        R.id.rtToAuthor -> {
                             startKtxActivity<WebViewActivity>(
                                 values = mutableListOf(
                                     WebViewActivity.TITLE to "关于作者",
                                     WebViewActivity.URL to "https://www.jianshu.com/u/05f7d21f41ed"
                                 )
                             )
+                        }
+                        R.id.ivCardClose -> {
+                            var viewType = views[position]
+                            views.removeAt(position)
+                            notifyItemRemoved(position)
                         }
                     }
                 }
@@ -113,6 +119,21 @@ class HomeFragment : BaseVMFragment<HomeFragmentViewModel>() {
         cardAdapter.setList(views)
         cardAdapter.notifyDataSetChanged()
 
+        Handler().postDelayed({
+            views.add(0, HomeCardViewType("showArticle", HomeCardViewType.VIEW_CARD_ABOUT_APP))
+            cardAdapter.notifyItemChanged(0)
+        }, 1000)
+
+        Handler().postDelayed({
+            views.add(1, HomeCardViewType("showArticle", HomeCardViewType.VIEW_CARD_DEVELOPER))
+            cardAdapter.notifyItemInserted(1)
+        }, 2000)
+
+        Handler().postDelayed({
+            views.add(1, HomeCardViewType("showArticle", HomeCardViewType.VIEW_CARD_SIGN))
+            cardAdapter.notifyItemInserted(1)
+        }, 3000)
+
     }
 
     private fun buildBannerData(bannerBeanList: MutableList<BannerBean>) {
@@ -124,9 +145,6 @@ class HomeFragment : BaseVMFragment<HomeFragmentViewModel>() {
     }
 
     private fun buildData(articles: MutableList<ArticleBean>) {
-        views.add(HomeCardViewType("showArticle", HomeCardViewType.VIEW_CARD_ABOUT_APP))
-        views.add(HomeCardViewType("showArticle", HomeCardViewType.VIEW_CARD_DEVELOPER))
-        views.add(HomeCardViewType("showArticle", HomeCardViewType.VIEW_CARD_SIGN))
         var showArticle: MutableList<ArticleBean> = mutableListOf()
         for (it in 0 until 5) {
             showArticle.add(articles[it])

@@ -1,5 +1,6 @@
 package com.mg.axechen.wanandroid.ui.search
 
+import android.os.Handler
 import android.view.inputmethod.EditorInfo
 import androidx.core.view.isVisible
 import androidx.lifecycle.Observer
@@ -121,12 +122,14 @@ class SearchActivity : BaseVMActivity<SearchViewModel>() {
     }
 
     private fun startSearch(item: String) {
-        loadService?.showCallback(LoadingCallback::class.java)
         showArticle = true
-        searchArticle(item)
+        loadService?.showCallback(LoadingCallback::class.java)
         queryText = item
         addHistory(queryText)
         KeyBoardUtil.hideSoftInput(this, editSearch)
+        Handler().postDelayed({
+            searchArticle(item)
+        }, 1000)
     }
 
     override fun initData() {

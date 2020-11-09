@@ -10,7 +10,7 @@ import com.mg.axechen.wanandroid.model.ArticleBean
 import com.mg.axechen.wanandroid.model.BannerBean
 import com.mg.axechen.wanandroid.model.ProjectBean
 
-class HomeFragmentViewModel : BaseViewModel() {
+class ArticleViewModel : BaseViewModel() {
 
     private val articleRepository by lazy { ArticleRepository() }
 

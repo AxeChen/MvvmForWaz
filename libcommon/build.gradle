@@ -38,8 +38,6 @@ dependencies {
     androidTestImplementation rootProject.ext.androidx["androidx.test.ext-junit"]
     androidTestImplementation rootProject.ext.androidx["androidx.test.espresso:espresso-core"]
 
-    api 'androidx.navigation:navigation-fragment:2.3.0'
-    api 'androidx.navigation:navigation-ui:2.3.0'
 
     api rootProject.ext.androidx["androidx-appcompat"]
     api rootProject.ext.androidx["androidx-core-ktx"]
@@ -53,5 +51,7 @@ dependencies {
     api rootProject.ext.androidx["androidx.cardview"]
     api rootProject.ext.androidx["android.material"]
     api rootProject.ext.androidx["android.arch.work"]
+    api rootProject.ext.androidx["androidx.navigation.fragment"]
+    api rootProject.ext.androidx["androidx.navigation.ui"]
 
 }

@@ -89,21 +89,55 @@
     </com.ruffian.library.widget.RRelativeLayout>
 
 
-    <TextView
-        android:id="@+id/tvLogin"
+    <com.ruffian.library.widget.RRelativeLayout
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_marginLeft="16dp"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="16dp"
+        android:background="@color/green_d8f5ec"
+        app:background_normal="@color/green_d8f5ec"
+        app:corner_radius="10dp">
+
+        <ImageView
+            android:id="@+id/ivReLoginPwd"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            app:srcCompat="@drawable/ic_login_password" />
+
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_toRightOf="@+id/ivReLoginPwd"
+            android:background="@null"
+            android:hint="确认密码"
+            android:inputType="textPassword"
+            android:textColor="@color/white"
+            android:textColorHint="@color/white"
+            android:textSize="16dp" />
+
+
+    </com.ruffian.library.widget.RRelativeLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="30dp"
         android:layout_marginRight="16dp"
         android:background="@drawable/login_btn_shap"
         android:gravity="center"
-        android:text="登 录"
+        android:text="注 册"
         android:textColor="@color/white"
         android:textSize="18dp" />
 
     <TextView
-        android:id="@+id/tvToRegister"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"

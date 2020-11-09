@@ -11,7 +11,7 @@ import com.mg.axechen.wanandroid.model.ArticleBean
 import com.mg.axechen.wanandroid.model.BannerBean
 import kotlinx.android.synthetic.main.fragment_home.*
 
-class HomeFragment : BaseVMFragment<HomeFragmentViewModel>() {
+class HomeFragment : BaseVMFragment<ArticleViewModel>() {
 
     override fun setLayoutId(): Int = R.layout.fragment_home
 

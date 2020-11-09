@@ -146,27 +146,7 @@ class MainActivity : BaseActivity() {
             .statusBarDarkFont(false, 0.2f)
             .init()
     }
-
-
-//    private fun testWork() {
-//        var request = makeOneTimeWorkRequest()
-//        WorkManager.getInstance().enqueue(request)
-//        WorkManager.getInstance().getWorkInfoByIdLiveData(request.id).observe(this, Observer {
-//            when (it.state) {
-//                WorkInfo.State.SUCCEEDED -> {
-//                    var getData = it.outputData
-//                    Log.i("TestWork", getData.getString("result"))
-//                }
-//            }
-//        })
-//    }
-//
-//    private fun makeOneTimeWorkRequest(): OneTimeWorkRequest {
-//        val inputData: Data = Data.Builder()
-//            .putInt("page", 1)
-//            .build()
-//        return OneTimeWorkRequest.Builder(TestWork::class.java).setInputData(inputData).build()
-//    }
+    
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.menu_main, menu)

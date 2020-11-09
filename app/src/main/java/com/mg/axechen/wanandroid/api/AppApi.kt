@@ -36,4 +36,13 @@ interface AppApi {
 
     @GET("hotkey/json")
     suspend fun hotWords(): ResponseList<HotWord>
+
+    @POST("user/login")
+    suspend fun userLogin(
+        @Query("username") username: String,
+        @Query("password") userPwd: String
+    ): ResponseEntity<Any>
+
+    @POST("user/register")
+    suspend fun userRegister(): ResponseEntity<Any>
 }

@@ -3,12 +3,14 @@ package com.mg.axechen.wanandroid.ui.home
 import android.os.Handler
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.jeremyliao.liveeventbus.LiveEventBus
 import com.mg.axechen.libcommon.startKtxActivity
 import com.mg.axechen.wanandroid.R
 import com.mg.axechen.wanandroid.base.mvvm.BaseVMFragment
 import com.mg.axechen.wanandroid.base.webview.WebViewActivity
 import com.mg.axechen.wanandroid.model.ArticleBean
 import com.mg.axechen.wanandroid.model.BannerBean
+import com.mg.axechen.wanandroid.ui.article.ArticleListActivity
 import kotlinx.android.synthetic.main.fragment_home.*
 
 class HomeFragment : BaseVMFragment<ArticleViewModel>() {
@@ -18,6 +20,8 @@ class HomeFragment : BaseVMFragment<ArticleViewModel>() {
     private var views: MutableList<HomeCardViewType> = mutableListOf()
 
     private val cardAdapter by lazy { HomeCardAdapter(requireActivity(), views) }
+
+    private var articles: MutableList<ArticleBean> = mutableListOf()
 
     override fun initView() {
         super.initView()
@@ -63,6 +67,15 @@ class HomeFragment : BaseVMFragment<ArticleViewModel>() {
                             views.removeAt(position)
                             notifyItemRemoved(position)
                         }
+
+                        R.id.tvMoreArticle -> {
+                            startKtxActivity<ArticleListActivity>(
+                                values = mutableListOf(
+                                    ArticleListActivity.SHOW_TYPE to ArticleListActivity.ARTICLE_LIST
+                                )
+                            )
+                            LiveEventBus.get(ArticleListActivity.ARTICLE_LIST).post(articles)
+                        }
                     }
                 }
             }
@@ -81,6 +94,7 @@ class HomeFragment : BaseVMFragment<ArticleViewModel>() {
             uiState.observe(this@HomeFragment, Observer {
                 it.articleList?.run {
                     if (isNotEmpty()) {
+                        articles.addAll(this)
                         // 构建数据
                         buildData(this)
                     } else {

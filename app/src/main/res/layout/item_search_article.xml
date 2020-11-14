@@ -1,28 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:foreground="?attr/selectableItemBackground"
-    android:background="@color/white">
+    android:layout_height="80dp"
+    android:background="@color/white"
+    android:foreground="?attr/selectableItemBackground">
 
     <ImageView
         android:id="@+id/ivItemImage"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
         android:layout_alignParentRight="true"
-        android:layout_marginLeft="16dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="10dp"
+        android:layout_centerVertical="true"
         android:layout_marginRight="16dp"
         android:scaleType="center"
         android:src="@mipmap/ic_home_card_app_info"
         android:visibility="gone" />
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="16dp"
         android:layout_marginTop="10dp"
+        android:layout_marginRight="16dp"
         android:layout_marginBottom="10dp"
         android:layout_toLeftOf="@+id/ivItemImage"
         android:orientation="vertical">
@@ -31,8 +30,9 @@
             android:id="@+id/tvHotArticleTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
             android:ellipsize="end"
-            android:maxLines="2"
+            android:maxLines="1"
             android:textColor="@color/text_title"
             android:textSize="16dp" />
 
@@ -40,12 +40,13 @@
             android:id="@+id/tvHotArticleTime"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
             android:layout_marginTop="10dp"
             android:textColor="@color/text_content"
             android:textSize="14dp" />
 
 
-    </LinearLayout>
+    </RelativeLayout>
 
 
     <ImageView

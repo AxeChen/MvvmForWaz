@@ -1,4 +1,4 @@
-package com.mg.axechen.wanandroid.base.webview
+package com.mg.axechen.wanandroid.ui.article
 
 import android.annotation.SuppressLint
 import android.annotation.TargetApi
@@ -10,24 +10,24 @@ import android.view.View
 import android.webkit.*
 import android.widget.FrameLayout
 import androidx.core.content.ContextCompat
-import androidx.recyclerview.widget.RecyclerView
 import com.kingja.loadsir.core.LoadService
 import com.kingja.loadsir.core.LoadSir
 import com.mg.axechen.wanandroid.R
-import com.mg.axechen.wanandroid.base.BaseActivity
 import com.mg.axechen.wanandroid.base.load.LoadingCallback
 import com.mg.axechen.wanandroid.base.load.NoDataCallBack
+import com.mg.axechen.wanandroid.base.webview.WebViewActivity
+import com.mg.axechen.wanandroid.ui.dialog.BottomFollowDialog
 import com.smallbuer.jsbridge.core.BridgeWebView
-import kotlinx.android.synthetic.main.activity_search.*
-import kotlinx.android.synthetic.main.activity_webview.*
+import kotlinx.android.synthetic.main.activity_article.*
 import kotlinx.android.synthetic.main.layout_toolbar.*
 
-open class WebViewActivity : BaseActivity() {
+class ArticleActivity : WebViewActivity() {
+
+    override fun setLayoutId(): Int = R.layout.activity_article
 
     private var mWebView: BridgeWebView? = null
     private var webSettings: WebSettings? = null
 
-    override fun setLayoutId(): Int = R.layout.activity_webview
     private var loadService: LoadService<FrameLayout>? = null
 
     companion object {
@@ -55,7 +55,7 @@ open class WebViewActivity : BaseActivity() {
             setNavigationOnClickListener { finish() }
             toolbarTitle.setTextColor(
                 ContextCompat.getColor(
-                    this@WebViewActivity,
+                    this@ArticleActivity,
                     R.color.text_title
                 )
             )
@@ -90,7 +90,7 @@ open class WebViewActivity : BaseActivity() {
             javaScriptCanOpenWindowsAutomatically = true
             allowUniversalAccessFromFileURLs = true
             allowFileAccessFromFileURLs = true
-            setAppCachePath(this@WebViewActivity.getDir("appcache", 0).path)
+            setAppCachePath(this@ArticleActivity.getDir("appcache", 0).path)
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                 //两者都可以
                 mixedContentMode = WebSettings.MIXED_CONTENT_ALWAYS_ALLOW//设置安全的来源
@@ -126,6 +126,7 @@ open class WebViewActivity : BaseActivity() {
             super.onProgressChanged(webView, newProgress)
             if (newProgress > 70) {
                 loadService?.showSuccess()
+                // 判断是不是已经关注了这个类型，假如没有则关注这个类型
             }
         }
 
@@ -174,6 +175,8 @@ open class WebViewActivity : BaseActivity() {
 
         override fun onPageFinished(view: WebView?, url: String?) {
             super.onPageFinished(view, url)
+            var dialog = BottomFollowDialog()
+            dialog.show(supportFragmentManager, "follow")
         }
 
         override fun onReceivedSslError(

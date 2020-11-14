@@ -50,8 +50,47 @@ class ArticleListActivity : BaseVMActivity<ArticleViewModel>() {
         intent?.run {
             showType = getStringExtra(SHOW_TYPE)
         }
+        toolbarTitle.text = if (showType == ARTICLE_LIST) {
+            "热门文章"
+        } else {
+            "热门项目"
+        }
         initRecycler()
         initEvent()
+        startObserver()
+    }
+
+    private fun startObserver() {
+        mViewModel.run {
+            uiState.observe(this@ArticleListActivity, Observer {
+                it.articleList?.run {
+                    if (this.size > 0) {
+                        this.forEach {
+                            articleViews.add(ArticleViewType(it, ArticleViewType.VIEW_TYPE_ARTICLE))
+                        }
+                        listAdapter.setList(articleViews)
+                        listAdapter.notifyDataSetChanged()
+                    } else {
+                        listAdapter.loadMoreModule.loadMoreComplete()
+                        listAdapter.loadMoreModule.loadMoreEnd(false)
+                    }
+                }
+
+                it.projectList?.run {
+                    if (this.size > 0) {
+                        this.forEach {
+                            articleViews.add(ArticleViewType(it, ArticleViewType.VIEW_TYPE_PROJECT))
+                        }
+                        listAdapter.setList(articleViews)
+                        listAdapter.notifyDataSetChanged()
+                    } else {
+                        listAdapter.loadMoreModule.loadMoreComplete()
+                        listAdapter.loadMoreModule.loadMoreEnd(false)
+                    }
+                }
+
+            })
+        }
     }
 
     private fun initEvent() {
@@ -60,6 +99,16 @@ class ArticleListActivity : BaseVMActivity<ArticleViewModel>() {
                 articleList.addAll(it as MutableList<ArticleBean>)
                 articleList.forEach {
                     articleViews.add(ArticleViewType(it, ArticleViewType.VIEW_TYPE_ARTICLE))
+                }
+                listAdapter.setList(articleViews)
+                listAdapter.notifyDataSetChanged()
+            }
+        })
+        LiveEventBus.get(PROJECT_LIST, MutableList::class.java).observe(this, Observer {
+            if (it.isNotEmpty()) {
+                projectList.addAll(it as MutableList<ArticleBean>)
+                projectList.forEach {
+                    articleViews.add(ArticleViewType(it, ArticleViewType.VIEW_TYPE_PROJECT))
                 }
                 listAdapter.setList(articleViews)
                 listAdapter.notifyDataSetChanged()
@@ -79,19 +128,39 @@ class ArticleListActivity : BaseVMActivity<ArticleViewModel>() {
                 var viewType = articleViews[position]
                 if (viewType.itemType == ArticleViewType.VIEW_TYPE_ARTICLE) {
                     var articleBean = viewType.item as ArticleBean
-                    startKtxActivity<WebViewActivity>(
+                    startKtxActivity<ArticleActivity>(
                         values = mutableListOf(
-                            WebViewActivity.TITLE to articleBean.title,
-                            WebViewActivity.URL to articleBean.link
+                            ArticleActivity.TITLE to articleBean.title,
+                            ArticleActivity.URL to articleBean.link
+                        )
+                    )
+                }else{
+                    var articleBean = viewType.item as ArticleBean
+                    startKtxActivity<ArticleActivity>(
+                        values = mutableListOf(
+                            ArticleActivity.TITLE to articleBean.title,
+                            ArticleActivity.URL to articleBean.link
                         )
                     )
                 }
             }
             listAdapter.loadMoreModule.setOnLoadMoreListener {
                 page++
-
+                if (showType == ARTICLE_LIST) {
+                    getArticle()
+                } else {
+                    getProject()
+                }
             }
         }
+    }
+
+    private fun getArticle() {
+        mViewModel.getHotArticle(page)
+    }
+
+    private fun getProject() {
+        mViewModel.getHotProject(page)
     }
 
     override fun initView() {
@@ -101,11 +170,7 @@ class ArticleListActivity : BaseVMActivity<ArticleViewModel>() {
             .init()
         toolbar?.run {
             setNavigationOnClickListener { finish() }
-            toolbarTitle.text = if (showType == ARTICLE_LIST) {
-                "热门文章"
-            } else {
-                "热门项目"
-            }
+
         }
     }
 

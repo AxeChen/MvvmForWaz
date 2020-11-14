@@ -21,14 +21,16 @@
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="16dp"
                 android:gravity="center_vertical"
-                android:text="关于开发者"
+                android:text="关注"
                 android:textColor="@color/text_title"
-                android:textSize="16dp" />
+                android:textSize="16dp"
+                android:visibility="gone" />
 
             <ImageView
-                android:id="@+id/ivCardClose"
+                android:id="@+id/ivFollowCardClose"
                 android:layout_width="20dp"
                 android:layout_height="20dp"
+
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
                 android:layout_marginRight="16dp"
@@ -39,23 +41,24 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="1px"
-            android:background="@color/line" />
+            android:background="@color/line"
+            android:visibility="gone" />
+
 
         <ImageView
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:layout_gravity="center_horizontal"
-            android:layout_marginTop="20dp"
             android:src="@mipmap/ic_home_card_user_info" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="16dp"
+            android:layout_marginTop="10dp"
             android:layout_marginRight="16dp"
             android:gravity="center"
-            android:layout_marginTop="10dp"
-            android:text="我是AxeChen，目前在长沙工作，专注Android开发。"
+            android:text="关注“再峰公众号”，获取更多喜欢的文章"
             android:textColor="@color/text_content"
             android:textSize="16dp" />
 
@@ -67,7 +70,7 @@
             android:layout_marginTop="10dp"
             android:background="@color/colorPrimary"
             android:gravity="center"
-            android:text="了解更多"
+            android:text="关注"
             android:textColor="@color/white"
             android:textSize="14dp"
             android:textStyle="bold" />

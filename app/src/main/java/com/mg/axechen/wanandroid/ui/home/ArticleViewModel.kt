@@ -65,9 +65,9 @@ class ArticleViewModel : BaseViewModel() {
         }
     }
 
-    fun getHotProject() {
+    fun getHotProject(page: Int) {
         launch {
-            executeResponseEntity(projectRepository.getHotProject(0)).let {
+            executeResponseEntity(projectRepository.getHotProject(page)).let {
                 when (it) {
                     is ResultResponse.SuccessEntity -> {
                         emitUiState(projectList = it.data.datas)

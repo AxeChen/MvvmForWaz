@@ -10,6 +10,7 @@ import com.mg.axechen.wanandroid.base.mvvm.BaseVMFragment
 import com.mg.axechen.wanandroid.base.webview.WebViewActivity
 import com.mg.axechen.wanandroid.model.ArticleBean
 import com.mg.axechen.wanandroid.model.BannerBean
+import com.mg.axechen.wanandroid.ui.article.ArticleActivity
 import com.mg.axechen.wanandroid.ui.article.ArticleListActivity
 import kotlinx.android.synthetic.main.fragment_home.*
 
@@ -23,6 +24,8 @@ class HomeFragment : BaseVMFragment<ArticleViewModel>() {
 
     private var articles: MutableList<ArticleBean> = mutableListOf()
 
+    private var projects:MutableList<ArticleBean> = mutableListOf()
+
     override fun initView() {
         super.initView()
         initRecycler()
@@ -35,10 +38,10 @@ class HomeFragment : BaseVMFragment<ArticleViewModel>() {
             cardAdapter.apply {
                 homeItemClickListener = object : HomeCardAdapter.HomeItemClickListener {
                     override fun articleClickListener(articleBean: ArticleBean) {
-                        startKtxActivity<WebViewActivity>(
+                        startKtxActivity<ArticleActivity>(
                             values = mutableListOf(
-                                WebViewActivity.TITLE to articleBean.title,
-                                WebViewActivity.URL to articleBean.link
+                                ArticleActivity.TITLE to articleBean.title,
+                                ArticleActivity.URL to articleBean.link
                             )
                         )
                     }
@@ -47,18 +50,18 @@ class HomeFragment : BaseVMFragment<ArticleViewModel>() {
                 setOnItemChildClickListener { adapter, view, position ->
                     when (view.id) {
                         R.id.rtToMore -> {
-                            startKtxActivity<WebViewActivity>(
+                            startKtxActivity<ArticleActivity>(
                                 values = mutableListOf(
-                                    WebViewActivity.TITLE to "关于玩Android",
-                                    WebViewActivity.URL to "https://www.wanandroid.com/index"
+                                    ArticleActivity.TITLE to "关于玩Android",
+                                    ArticleActivity.URL to "https://www.wanandroid.com/index"
                                 )
                             )
                         }
                         R.id.rtToAuthor -> {
-                            startKtxActivity<WebViewActivity>(
+                            startKtxActivity<ArticleActivity>(
                                 values = mutableListOf(
-                                    WebViewActivity.TITLE to "关于作者",
-                                    WebViewActivity.URL to "https://www.jianshu.com/u/05f7d21f41ed"
+                                    ArticleActivity.TITLE to "关于作者",
+                                    ArticleActivity.URL to "https://www.jianshu.com/u/05f7d21f41ed"
                                 )
                             )
                         }
@@ -74,7 +77,19 @@ class HomeFragment : BaseVMFragment<ArticleViewModel>() {
                                     ArticleListActivity.SHOW_TYPE to ArticleListActivity.ARTICLE_LIST
                                 )
                             )
-                            LiveEventBus.get(ArticleListActivity.ARTICLE_LIST).post(articles)
+                            Handler().postDelayed({
+                                LiveEventBus.get(ArticleListActivity.ARTICLE_LIST).post(articles)
+                            },500)
+                        }
+                        R.id.tvToMoreProject->{
+                            startKtxActivity<ArticleListActivity>(
+                                values = mutableListOf(
+                                    ArticleListActivity.SHOW_TYPE to ArticleListActivity.PROJECT_LIST
+                                )
+                            )
+                            Handler().postDelayed({
+                                LiveEventBus.get(ArticleListActivity.PROJECT_LIST).post(projects)
+                            },500)
                         }
                     }
                 }
@@ -94,6 +109,7 @@ class HomeFragment : BaseVMFragment<ArticleViewModel>() {
             uiState.observe(this@HomeFragment, Observer {
                 it.articleList?.run {
                     if (isNotEmpty()) {
+                        articles.clear()
                         articles.addAll(this)
                         // 构建数据
                         buildData(this)
@@ -115,6 +131,8 @@ class HomeFragment : BaseVMFragment<ArticleViewModel>() {
 
                 it.projectList?.run {
                     if (isNotEmpty()) {
+                        projects.clear()
+                        projects.addAll(this)
                         buildProjectData(this)
                     } else {
 
@@ -178,7 +196,7 @@ class HomeFragment : BaseVMFragment<ArticleViewModel>() {
     }
 
     private fun getProject() {
-        mViewModel.getHotProject()
+        mViewModel.getHotProject(1)
     }
 
 

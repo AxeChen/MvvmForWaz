@@ -68,4 +68,5 @@ dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation 'com.jeremyliao:live-event-bus-x:1.7.2'
+
 }

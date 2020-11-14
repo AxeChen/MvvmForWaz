@@ -23,6 +23,7 @@ import com.mg.axechen.wanandroid.cache.AppCache
 import com.mg.axechen.wanandroid.model.ArticleBean
 import com.mg.axechen.wanandroid.model.ArticleListBean
 import com.mg.axechen.wanandroid.model.HotWord
+import com.mg.axechen.wanandroid.ui.article.ArticleActivity
 import kotlinx.android.synthetic.main.activity_search.*
 
 class SearchActivity : BaseVMActivity<SearchViewModel>() {
@@ -94,10 +95,10 @@ class SearchActivity : BaseVMActivity<SearchViewModel>() {
                 var viewType = data[position]
                 if (viewType.itemType == SearchViewType.VIEW_TYPE_SEARCH_ARTICLE) {
                     var articleBean = viewType.item as ArticleBean
-                    startKtxActivity<WebViewActivity>(
+                    startKtxActivity<ArticleActivity>(
                         values = mutableListOf(
-                            WebViewActivity.TITLE to articleBean.title,
-                            WebViewActivity.URL to articleBean.link
+                            ArticleActivity.TITLE to articleBean.title,
+                            ArticleActivity.URL to articleBean.link
                         )
                     )
                 }

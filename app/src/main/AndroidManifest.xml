@@ -38,6 +38,8 @@
         <activity android:name=".base.webview.WebViewActivity" />
 
         <activity android:name=".ui.article.ArticleListActivity" />
+
+        <activity android:name=".ui.article.ArticleActivity"/>
     </application>
 
 </manifest>

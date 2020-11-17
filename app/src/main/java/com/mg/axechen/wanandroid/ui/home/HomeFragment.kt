@@ -24,7 +24,7 @@ class HomeFragment : BaseVMFragment<ArticleViewModel>() {
 
     private var articles: MutableList<ArticleBean> = mutableListOf()
 
-    private var projects:MutableList<ArticleBean> = mutableListOf()
+    private var projects: MutableList<ArticleBean> = mutableListOf()
 
     override fun initView() {
         super.initView()
@@ -56,6 +56,10 @@ class HomeFragment : BaseVMFragment<ArticleViewModel>() {
                                     ArticleActivity.URL to "https://www.wanandroid.com/index"
                                 )
                             )
+                            requireActivity().overridePendingTransition(
+                                R.anim.right_to_left_enter,
+                                R.anim.left_to_right_out
+                            )
                         }
                         R.id.rtToAuthor -> {
                             startKtxActivity<ArticleActivity>(
@@ -63,6 +67,10 @@ class HomeFragment : BaseVMFragment<ArticleViewModel>() {
                                     ArticleActivity.TITLE to "关于作者",
                                     ArticleActivity.URL to "https://www.jianshu.com/u/05f7d21f41ed"
                                 )
+                            )
+                            requireActivity().overridePendingTransition(
+                                R.anim.right_to_left_enter,
+                                R.anim.left_to_right_out
                             )
                         }
                         R.id.ivCardClose -> {
@@ -77,19 +85,27 @@ class HomeFragment : BaseVMFragment<ArticleViewModel>() {
                                     ArticleListActivity.SHOW_TYPE to ArticleListActivity.ARTICLE_LIST
                                 )
                             )
+                            requireActivity().overridePendingTransition(
+                                R.anim.right_to_left_enter,
+                                R.anim.no_anim
+                            )
                             Handler().postDelayed({
                                 LiveEventBus.get(ArticleListActivity.ARTICLE_LIST).post(articles)
-                            },500)
+                            }, 500)
                         }
-                        R.id.tvToMoreProject->{
+                        R.id.tvToMoreProject -> {
                             startKtxActivity<ArticleListActivity>(
                                 values = mutableListOf(
                                     ArticleListActivity.SHOW_TYPE to ArticleListActivity.PROJECT_LIST
                                 )
                             )
+                            requireActivity().overridePendingTransition(
+                                R.anim.right_to_left_enter,
+                                R.anim.no_anim
+                            )
                             Handler().postDelayed({
                                 LiveEventBus.get(ArticleListActivity.PROJECT_LIST).post(projects)
-                            },500)
+                            }, 500)
                         }
                     }
                 }

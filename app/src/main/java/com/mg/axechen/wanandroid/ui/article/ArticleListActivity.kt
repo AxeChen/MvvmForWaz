@@ -125,23 +125,25 @@ class ArticleListActivity : BaseVMActivity<ArticleViewModel>() {
             }
             adapter = listAdapter
             listAdapter.setOnItemClickListener { adapter, view, position ->
-                var viewType = articleViews[position]
+                val viewType = articleViews[position]
                 if (viewType.itemType == ArticleViewType.VIEW_TYPE_ARTICLE) {
-                    var articleBean = viewType.item as ArticleBean
+                    val articleBean = viewType.item as ArticleBean
                     startKtxActivity<ArticleActivity>(
                         values = mutableListOf(
                             ArticleActivity.TITLE to articleBean.title,
                             ArticleActivity.URL to articleBean.link
                         )
                     )
-                }else{
-                    var articleBean = viewType.item as ArticleBean
+                    overridePendingTransition(R.anim.right_to_left_enter, R.anim.no_anim)
+                } else {
+                    val articleBean = viewType.item as ArticleBean
                     startKtxActivity<ArticleActivity>(
                         values = mutableListOf(
                             ArticleActivity.TITLE to articleBean.title,
                             ArticleActivity.URL to articleBean.link
                         )
                     )
+                    overridePendingTransition(R.anim.right_to_left_enter, R.anim.no_anim)
                 }
             }
             listAdapter.loadMoreModule.setOnLoadMoreListener {
@@ -174,5 +176,9 @@ class ArticleListActivity : BaseVMActivity<ArticleViewModel>() {
         }
     }
 
+    override fun finish() {
+        super.finish()
+        overridePendingTransition(R.anim.no_anim, R.anim.left_to_right_out)
+    }
 
 }

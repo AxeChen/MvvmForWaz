@@ -25,6 +25,7 @@ abstract class BaseActivity : AppCompatActivity(), CoroutineScope by MainScope()
 
     open fun initView() {}
     open fun initData() {}
+    open fun beforeSetContentView(){}
 
     open fun initStatusBar() {
         mImmersionBar = ImmersionBar.with(this)

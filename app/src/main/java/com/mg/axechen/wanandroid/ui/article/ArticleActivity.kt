@@ -7,12 +7,14 @@ import android.net.http.SslError
 import android.os.Build
 import android.text.Html
 import android.view.View
+import android.view.Window
 import android.webkit.*
 import android.widget.FrameLayout
 import androidx.core.content.ContextCompat
 import com.kingja.loadsir.core.LoadService
 import com.kingja.loadsir.core.LoadSir
 import com.mg.axechen.wanandroid.R
+import com.mg.axechen.wanandroid.base.BaseActivity
 import com.mg.axechen.wanandroid.base.load.LoadingCallback
 import com.mg.axechen.wanandroid.base.load.NoDataCallBack
 import com.mg.axechen.wanandroid.base.webview.WebViewActivity
@@ -21,7 +23,7 @@ import com.smallbuer.jsbridge.core.BridgeWebView
 import kotlinx.android.synthetic.main.activity_article.*
 import kotlinx.android.synthetic.main.layout_toolbar.*
 
-class ArticleActivity : WebViewActivity() {
+class ArticleActivity : BaseActivity() {
 
     override fun setLayoutId(): Int = R.layout.activity_article
 
@@ -208,6 +210,11 @@ class ArticleActivity : WebViewActivity() {
             mWebView = null
         }
         super.onDestroy()
+    }
+
+    override fun finish() {
+        super.finish()
+        overridePendingTransition(R.anim.no_anim, R.anim.left_to_right_out)
     }
 
 }

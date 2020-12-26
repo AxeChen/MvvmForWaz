@@ -18,6 +18,8 @@
 
         </activity>
 
+        <activity android:name=".ui.login.RegisterActivity"/>
+
         <activity android:name=".ui.guide.OnBoardingActivity">
 
         </activity>

@@ -39,10 +39,7 @@ interface AppApi {
 
     @POST("user/login")
     suspend fun userLogin(
-        @Query("username") username: String,
-        @Query("password") userPwd: String
+        @Query("username") userName: String,
+        @Query("password") password: String
     ): ResponseEntity<Any>
-
-    @POST("user/register")
-    suspend fun userRegister(): ResponseEntity<Any>
 }

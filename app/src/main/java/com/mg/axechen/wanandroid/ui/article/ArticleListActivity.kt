@@ -40,7 +40,7 @@ class ArticleListActivity : BaseVMActivity<ArticleViewModel>() {
     }
 
     private val listAdapter by lazy {
-        ArticleListAdapter(articleViews)
+        ArticleListAdapter2()
     }
 
     override fun setLayoutId(): Int = R.layout.activity_article_list
@@ -68,11 +68,11 @@ class ArticleListActivity : BaseVMActivity<ArticleViewModel>() {
                         this.forEach {
                             articleViews.add(ArticleViewType(it, ArticleViewType.VIEW_TYPE_ARTICLE))
                         }
-                        listAdapter.setList(articleViews)
+                        listAdapter.submitList(this)
                         listAdapter.notifyDataSetChanged()
                     } else {
-                        listAdapter.loadMoreModule.loadMoreComplete()
-                        listAdapter.loadMoreModule.loadMoreEnd(false)
+//                        listAdapter.loadMoreModule.loadMoreComplete()
+//                        listAdapter.loadMoreModule.loadMoreEnd(false)
                     }
                 }
 
@@ -81,11 +81,11 @@ class ArticleListActivity : BaseVMActivity<ArticleViewModel>() {
                         this.forEach {
                             articleViews.add(ArticleViewType(it, ArticleViewType.VIEW_TYPE_PROJECT))
                         }
-                        listAdapter.setList(articleViews)
+                        listAdapter.submitList(this)
                         listAdapter.notifyDataSetChanged()
                     } else {
-                        listAdapter.loadMoreModule.loadMoreComplete()
-                        listAdapter.loadMoreModule.loadMoreEnd(false)
+//                        listAdapter.loadMoreModule.loadMoreComplete()
+//                        listAdapter.loadMoreModule.loadMoreEnd(false)
                     }
                 }
 
@@ -100,7 +100,7 @@ class ArticleListActivity : BaseVMActivity<ArticleViewModel>() {
                 articleList.forEach {
                     articleViews.add(ArticleViewType(it, ArticleViewType.VIEW_TYPE_ARTICLE))
                 }
-                listAdapter.setList(articleViews)
+                listAdapter.submitList(articleList)
                 listAdapter.notifyDataSetChanged()
             }
         })
@@ -110,7 +110,7 @@ class ArticleListActivity : BaseVMActivity<ArticleViewModel>() {
                 projectList.forEach {
                     articleViews.add(ArticleViewType(it, ArticleViewType.VIEW_TYPE_PROJECT))
                 }
-                listAdapter.setList(articleViews)
+                listAdapter.submitList(articleList)
                 listAdapter.notifyDataSetChanged()
             }
         })
@@ -124,36 +124,36 @@ class ArticleListActivity : BaseVMActivity<ArticleViewModel>() {
                 GridLayoutManager(this@ArticleListActivity, 2)
             }
             adapter = listAdapter
-            listAdapter.setOnItemClickListener { adapter, view, position ->
-                val viewType = articleViews[position]
-                if (viewType.itemType == ArticleViewType.VIEW_TYPE_ARTICLE) {
-                    val articleBean = viewType.item as ArticleBean
-                    startKtxActivity<ArticleActivity>(
-                        values = mutableListOf(
-                            ArticleActivity.TITLE to articleBean.title,
-                            ArticleActivity.URL to articleBean.link
-                        )
-                    )
-                    overridePendingTransition(R.anim.right_to_left_enter, R.anim.no_anim)
-                } else {
-                    val articleBean = viewType.item as ArticleBean
-                    startKtxActivity<ArticleActivity>(
-                        values = mutableListOf(
-                            ArticleActivity.TITLE to articleBean.title,
-                            ArticleActivity.URL to articleBean.link
-                        )
-                    )
-                    overridePendingTransition(R.anim.right_to_left_enter, R.anim.no_anim)
-                }
-            }
-            listAdapter.loadMoreModule.setOnLoadMoreListener {
-                page++
-                if (showType == ARTICLE_LIST) {
-                    getArticle()
-                } else {
-                    getProject()
-                }
-            }
+//            listAdapter.setOnItemClickListener { adapter, view, position ->
+//                val viewType = articleViews[position]
+//                if (viewType.itemType == ArticleViewType.VIEW_TYPE_ARTICLE) {
+//                    val articleBean = viewType.item as ArticleBean
+//                    startKtxActivity<ArticleActivity>(
+//                        values = mutableListOf(
+//                            ArticleActivity.TITLE to articleBean.title,
+//                            ArticleActivity.URL to articleBean.link
+//                        )
+//                    )
+//                    overridePendingTransition(R.anim.right_to_left_enter, R.anim.no_anim)
+//                } else {
+//                    val articleBean = viewType.item as ArticleBean
+//                    startKtxActivity<ArticleActivity>(
+//                        values = mutableListOf(
+//                            ArticleActivity.TITLE to articleBean.title,
+//                            ArticleActivity.URL to articleBean.link
+//                        )
+//                    )
+//                    overridePendingTransition(R.anim.right_to_left_enter, R.anim.no_anim)
+//                }
+//            }
+//            listAdapter.loadMoreModule.setOnLoadMoreListener {
+//                page++
+//                if (showType == ARTICLE_LIST) {
+//                    getArticle()
+//                } else {
+//                    getProject()
+//                }
+//            }
         }
     }
 

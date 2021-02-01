@@ -3,7 +3,7 @@ ext {
     android = [
             compileSdkVersion: 29,
             buildToolsVersion: '30.0.0',
-            minSdkVersion    : 21,
+            minSdkVersion    : 19,
             targetSdkVersion : 29,
             applicationId    : "com.mg.axechen.wanandroid",
             versionCode      : 1,
@@ -27,9 +27,9 @@ ext {
             "junit"                               : "junit:junit:4.13",
             "androidx.test.ext-junit"             : "androidx.test.ext:junit:1.1.1",
             "androidx.test.espresso:espresso-core": "androidx.test.espresso:espresso-core:3.2.0",
-            "android.arch.work":"android.arch.work:work-runtime:1.0.0-alpha07",
-            "androidx.navigation.fragment":"androidx.navigation:navigation-fragment:2.3.0-alpha01",
-            "androidx.navigation.ui":"androidx.navigation:navigation-ui:2.3.0-alpha01",
+            "android.arch.work"                   : "android.arch.work:work-runtime:1.0.0-alpha07",
+            "androidx.navigation.fragment"        : "androidx.navigation:navigation-fragment:2.3.0-alpha01",
+            "androidx.navigation.ui"              : "androidx.navigation:navigation-ui:2.3.0-alpha01",
 
     ]
 
@@ -43,6 +43,8 @@ ext {
             "easypermissions"              : "pub.devrel:easypermissions:3.0.0",
             "immersionbar"                 : "com.gyf.immersionbar:immersionbar:3.0.0",
             "glide"                        : "com.github.bumptech.glide:glide:4.11.0",
-            "glide-compiler"               : "com.github.bumptech.glide:compiler:4.11.0"
+            "glide-compiler"               : "com.github.bumptech.glide:compiler:4.11.0",
+            converter_gson                 : 'com.squareup.retrofit2:converter-gson:2.9.0',
+            retrofit                       : 'com.squareup.retrofit2:retrofit:2.9.0',
     ]
 }

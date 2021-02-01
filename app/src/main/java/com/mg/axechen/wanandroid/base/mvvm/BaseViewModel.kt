@@ -20,7 +20,6 @@ open class BaseViewModel : ViewModel() {
 
     // 异常处理
     private val exceptionHandler = CoroutineExceptionHandler { _, exception ->
-
     }
 
     suspend fun <T : Any> executeResponseEntity(response: ResponseEntity<T>): ResultResponse<T> {

@@ -39,7 +39,15 @@ class HomeCardAdapter(
         addItemType(HomeCardViewType.VIEW_TYPE_HOT_PROJECT, R.layout.item_home_card_project_card)
         addItemType(HomeCardViewType.VIEW_CARD_DEVELOPER, R.layout.item_home_card_about_author)
         addItemType(HomeCardViewType.VIEW_CARD_SIGN, R.layout.item_home_card_sgin)
-        addChildClickViewIds(R.id.rtToMore, R.id.rtToAuthor, R.id.ivCardClose, R.id.tvMoreArticle,R.id.tvToMoreProject)
+        addChildClickViewIds(
+            R.id.rtToMore,
+            R.id.rtToAuthor,
+            R.id.ivCardClose,
+            R.id.tvMoreArticle,
+            R.id.tvToMoreProject,
+            R.id.rtToRegister,
+            R.id.tvToLogin
+        )
     }
 
 

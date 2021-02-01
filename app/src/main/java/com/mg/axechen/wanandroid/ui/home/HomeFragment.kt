@@ -12,6 +12,8 @@ import com.mg.axechen.wanandroid.model.ArticleBean
 import com.mg.axechen.wanandroid.model.BannerBean
 import com.mg.axechen.wanandroid.ui.article.ArticleActivity
 import com.mg.axechen.wanandroid.ui.article.ArticleListActivity
+import com.mg.axechen.wanandroid.ui.login.LoginActivity
+import com.mg.axechen.wanandroid.ui.login.RegisterActivity
 import kotlinx.android.synthetic.main.fragment_home.*
 
 class HomeFragment : BaseVMFragment<ArticleViewModel>() {
@@ -106,6 +108,12 @@ class HomeFragment : BaseVMFragment<ArticleViewModel>() {
                             Handler().postDelayed({
                                 LiveEventBus.get(ArticleListActivity.PROJECT_LIST).post(projects)
                             }, 500)
+                        }
+                        R.id.rtToRegister->{
+                            startKtxActivity<RegisterActivity>()
+                        }
+                        R.id.tvToLogin->{
+                            startKtxActivity<LoginActivity>()
                         }
                     }
                 }

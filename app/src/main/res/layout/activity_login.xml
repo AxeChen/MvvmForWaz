@@ -1,115 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/colorPrimary"
-    android:orientation="vertical">
+    android:layout_height="match_parent">
 
     <include layout="@layout/layout_toolbar" />
 
-    <com.airbnb.lottie.LottieAnimationView
-        android:layout_width="120dp"
-        android:layout_height="120dp"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="50dp"
-        app:srcCompat="@drawable/logo" />
-
-
-    <com.ruffian.library.widget.RRelativeLayout
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginTop="50dp"
-        android:layout_marginRight="16dp"
-        android:background="@color/green_d8f5ec"
-        app:background_normal="@color/green_d8f5ec"
-        app:corner_radius="10dp">
+        android:layout_height="match_parent">
 
 
-        <ImageView
-            android:id="@+id/ivUserName"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="10dp"
-            app:srcCompat="@drawable/ic_login_username" />
-
-        <EditText
-            android:id="@+id/edLoginUserName"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:layout_toRightOf="@+id/ivUserName"
-            android:background="@null"
-            android:hint="用户名"
-            android:textColor="@color/white"
-            android:textColorHint="@color/white"
-            android:textSize="16dp" />
 
 
-    </com.ruffian.library.widget.RRelativeLayout>
-
-    <com.ruffian.library.widget.RRelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginRight="16dp"
-        android:background="@color/green_d8f5ec"
-        app:background_normal="@color/green_d8f5ec"
-        app:corner_radius="10dp">
-
-        <ImageView
-            android:id="@+id/ivLoginPwd"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="10dp"
-            app:srcCompat="@drawable/ic_login_password" />
-
-
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:layout_toRightOf="@+id/ivLoginPwd"
-            android:background="@null"
-            android:hint="密码"
-            android:inputType="textPassword"
-            android:textColor="@color/white"
-            android:textColorHint="@color/white"
-            android:textSize="16dp" />
-
-
-    </com.ruffian.library.widget.RRelativeLayout>
-
-
-    <TextView
-        android:id="@+id/tvLogin"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginTop="50dp"
-        android:layout_marginRight="16dp"
-        android:background="@drawable/login_btn_shap"
-        android:gravity="center"
-        android:text="登 录"
-        android:textColor="@color/white"
-        android:textSize="18dp" />
-
-    <TextView
-        android:id="@+id/tvToRegister"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="10dp"
-        android:text="用户注册"
-        android:textColor="@color/white"
-        android:textSize="16dp" />
+    </RelativeLayout>
 
 </LinearLayout>

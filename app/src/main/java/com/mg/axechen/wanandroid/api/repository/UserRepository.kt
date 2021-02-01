@@ -9,8 +9,4 @@ class UserRepository {
     suspend fun userLogin(userName: String, userPwd: String): ResponseEntity<Any> {
         return api.userLogin(userName, userPwd)
     }
-
-    suspend fun userRegister(): ResponseEntity<Any> {
-        return api.userRegister()
-    }
 }

@@ -12,6 +12,7 @@ import com.mg.axechen.wanandroid.model.ArticleBean
 import com.mg.axechen.wanandroid.model.BannerBean
 import com.mg.axechen.wanandroid.ui.article.ArticleActivity
 import com.mg.axechen.wanandroid.ui.article.ArticleListActivity
+import com.mg.axechen.wanandroid.ui.article.ArticleListActivity2
 import com.mg.axechen.wanandroid.ui.login.LoginActivity
 import com.mg.axechen.wanandroid.ui.login.RegisterActivity
 import kotlinx.android.synthetic.main.fragment_home.*
@@ -82,9 +83,9 @@ class HomeFragment : BaseVMFragment<ArticleViewModel>() {
                         }
 
                         R.id.tvMoreArticle -> {
-                            startKtxActivity<ArticleListActivity>(
+                            startKtxActivity<ArticleListActivity2>(
                                 values = mutableListOf(
-                                    ArticleListActivity.SHOW_TYPE to ArticleListActivity.ARTICLE_LIST
+                                    ArticleListActivity2.SHOW_TYPE to ArticleListActivity2.ARTICLE_LIST
                                 )
                             )
                             requireActivity().overridePendingTransition(
@@ -92,13 +93,13 @@ class HomeFragment : BaseVMFragment<ArticleViewModel>() {
                                 R.anim.no_anim
                             )
                             Handler().postDelayed({
-                                LiveEventBus.get(ArticleListActivity.ARTICLE_LIST).post(articles)
+                                LiveEventBus.get(ArticleListActivity2.ARTICLE_LIST).post(articles)
                             }, 500)
                         }
                         R.id.tvToMoreProject -> {
                             startKtxActivity<ArticleListActivity>(
                                 values = mutableListOf(
-                                    ArticleListActivity.SHOW_TYPE to ArticleListActivity.PROJECT_LIST
+                                    ArticleListActivity2.SHOW_TYPE to ArticleListActivity2.PROJECT_LIST
                                 )
                             )
                             requireActivity().overridePendingTransition(
@@ -106,7 +107,7 @@ class HomeFragment : BaseVMFragment<ArticleViewModel>() {
                                 R.anim.no_anim
                             )
                             Handler().postDelayed({
-                                LiveEventBus.get(ArticleListActivity.PROJECT_LIST).post(projects)
+                                LiveEventBus.get(ArticleListActivity2.PROJECT_LIST).post(projects)
                             }, 500)
                         }
                         R.id.rtToRegister->{

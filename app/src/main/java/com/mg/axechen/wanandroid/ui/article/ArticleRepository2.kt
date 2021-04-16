@@ -8,7 +8,7 @@ import kotlinx.coroutines.flow.Flow
 
 class ArticleRepository2 {
     fun getArticleData(): Flow<PagingData<ArticleBean>> {
-        return Pager(PagingConfig(pageSize = 20)){
+        return Pager(PagingConfig(pageSize = 20)) {
             PagedKeyArticleDataSource()
         }.flow
     }

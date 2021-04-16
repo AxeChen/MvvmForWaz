@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+        <variable
+            name="article"
+            type="com.mg.axechen.wanandroid.model.ArticleBean" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:foreground="?attr/selectableItemBackground"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <ImageView
+            android:id="@+id/ivProjectImage"
+            android:layout_width="match_parent"
+            android:layout_height="120dp"
+            android:imageUrl="@{article.envelopePic}"
+            android:scaleType="centerCrop" />
+
+        <TextView
+            android:id="@+id/tvProjectTitle"
+            style="@style/titleStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:maxLines="2"
+            android:text="@{article.title}"
+            android:textColor="@color/text_title" />
+
+
+    </LinearLayout>
+</layout>

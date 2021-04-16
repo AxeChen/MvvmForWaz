@@ -83,9 +83,9 @@ class HomeFragment : BaseVMFragment<ArticleViewModel>() {
                         }
 
                         R.id.tvMoreArticle -> {
-                            startKtxActivity<ArticleListActivity2>(
+                            startKtxActivity<ArticleListActivity>(
                                 values = mutableListOf(
-                                    ArticleListActivity2.SHOW_TYPE to ArticleListActivity2.ARTICLE_LIST
+                                    ArticleListActivity.SHOW_TYPE to ArticleListActivity.ARTICLE_LIST
                                 )
                             )
                             requireActivity().overridePendingTransition(
@@ -93,13 +93,13 @@ class HomeFragment : BaseVMFragment<ArticleViewModel>() {
                                 R.anim.no_anim
                             )
                             Handler().postDelayed({
-                                LiveEventBus.get(ArticleListActivity2.ARTICLE_LIST).post(articles)
+                                LiveEventBus.get(ArticleListActivity.ARTICLE_LIST).post(articles)
                             }, 500)
                         }
                         R.id.tvToMoreProject -> {
                             startKtxActivity<ArticleListActivity>(
                                 values = mutableListOf(
-                                    ArticleListActivity2.SHOW_TYPE to ArticleListActivity2.PROJECT_LIST
+                                    ArticleListActivity.SHOW_TYPE to ArticleListActivity.PROJECT_LIST
                                 )
                             )
                             requireActivity().overridePendingTransition(
@@ -107,7 +107,7 @@ class HomeFragment : BaseVMFragment<ArticleViewModel>() {
                                 R.anim.no_anim
                             )
                             Handler().postDelayed({
-                                LiveEventBus.get(ArticleListActivity2.PROJECT_LIST).post(projects)
+                                LiveEventBus.get(ArticleListActivity.PROJECT_LIST).post(projects)
                             }, 500)
                         }
                         R.id.rtToRegister->{

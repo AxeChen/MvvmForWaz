@@ -13,11 +13,22 @@
         android:textSize="16dp" />
 
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/dp_40"
+        android:gravity="center_vertical"
+        android:paddingLeft="16dp"
+        android:text="请选择你喜欢的微信公众号"
+        android:textColor="@color/text_title"
+        android:textSize="16sp" />
+
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvList"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@+id/tvNext"
+        android:layout_marginTop="@dimen/dp_40"
         android:paddingLeft="11dp"
         android:paddingRight="11dp" />
 

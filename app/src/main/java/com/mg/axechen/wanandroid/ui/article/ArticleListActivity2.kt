@@ -1,5 +1,6 @@
 package com.mg.axechen.wanandroid.ui.article
 
+import android.view.View
 import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
@@ -68,7 +69,19 @@ class ArticleListActivity2 : BaseVMActivity<ArticleViewModel2>() {
             } else {
                 GridLayoutManager(this@ArticleListActivity2, 2)
             }
-            adapter = listAdapter.withLoadStateFooter(PostsLoadStateAdapter(listAdapter))
+//            adapter = listAdapter.withLoadStateFooter(PostsLoadStateAdapter(listAdapter))
+            listAdapter.apply {
+                onItemClick = object : ArticleListAdapter3.ItemClick {
+                    override fun onClicked(view: View, articleBean: ArticleBean) {
+                        startKtxActivity<ArticleActivity>(
+                            values = mutableListOf(
+                                ArticleActivity.TITLE to articleBean.title,
+                                ArticleActivity.URL to articleBean.link
+                            )
+                        )
+                    }
+                }
+            }
 
         }
     }
@@ -76,7 +89,8 @@ class ArticleListActivity2 : BaseVMActivity<ArticleViewModel2>() {
     private fun getArticleData() {
         mViewModel.getArticleData().observe(this, Observer {
             lifecycleScope.launchWhenCreated {
-                listAdapter.submitData(it)
+
+//                listAdapter.submitData(it)
             }
         })
     }

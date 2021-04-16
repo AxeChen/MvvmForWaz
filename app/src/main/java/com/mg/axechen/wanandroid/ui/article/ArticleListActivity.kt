@@ -4,13 +4,10 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.jeremyliao.liveeventbus.LiveEventBus
-import com.mg.axechen.libcommon.startKtxActivity
 import com.mg.axechen.wanandroid.R
 import com.mg.axechen.wanandroid.base.mvvm.BaseVMActivity
-import com.mg.axechen.wanandroid.base.webview.WebViewActivity
 import com.mg.axechen.wanandroid.model.ArticleBean
 import com.mg.axechen.wanandroid.ui.home.ArticleViewModel
-import com.mg.axechen.wanandroid.ui.search.SearchViewType
 import kotlinx.android.synthetic.main.activity_article_list.*
 import kotlinx.android.synthetic.main.layout_toolbar.*
 
@@ -40,7 +37,7 @@ class ArticleListActivity : BaseVMActivity<ArticleViewModel>() {
     }
 
     private val listAdapter by lazy {
-        ArticleListAdapter2()
+        ArticleListAdapter3()
     }
 
     override fun setLayoutId(): Int = R.layout.activity_article_list
@@ -68,7 +65,7 @@ class ArticleListActivity : BaseVMActivity<ArticleViewModel>() {
                         this.forEach {
                             articleViews.add(ArticleViewType(it, ArticleViewType.VIEW_TYPE_ARTICLE))
                         }
-                        listAdapter.submitList(this)
+                        listAdapter.submitList(articleViews)
                         listAdapter.notifyDataSetChanged()
                     } else {
 //                        listAdapter.loadMoreModule.loadMoreComplete()
@@ -81,7 +78,7 @@ class ArticleListActivity : BaseVMActivity<ArticleViewModel>() {
                         this.forEach {
                             articleViews.add(ArticleViewType(it, ArticleViewType.VIEW_TYPE_PROJECT))
                         }
-                        listAdapter.submitList(this)
+                        listAdapter.submitList(articleViews)
                         listAdapter.notifyDataSetChanged()
                     } else {
 //                        listAdapter.loadMoreModule.loadMoreComplete()
@@ -100,7 +97,7 @@ class ArticleListActivity : BaseVMActivity<ArticleViewModel>() {
                 articleList.forEach {
                     articleViews.add(ArticleViewType(it, ArticleViewType.VIEW_TYPE_ARTICLE))
                 }
-                listAdapter.submitList(articleList)
+                listAdapter.submitList(articleViews)
                 listAdapter.notifyDataSetChanged()
             }
         })
@@ -110,7 +107,7 @@ class ArticleListActivity : BaseVMActivity<ArticleViewModel>() {
                 projectList.forEach {
                     articleViews.add(ArticleViewType(it, ArticleViewType.VIEW_TYPE_PROJECT))
                 }
-                listAdapter.submitList(articleList)
+                listAdapter.submitList(articleViews)
                 listAdapter.notifyDataSetChanged()
             }
         })

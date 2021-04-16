@@ -2,9 +2,11 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
 
     <data>
+
         <variable
             name="article"
             type="com.mg.axechen.wanandroid.model.ArticleBean" />
+
     </data>
 
     <RelativeLayout xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -21,8 +23,8 @@
             android:layout_centerVertical="true"
             android:layout_marginRight="16dp"
             android:scaleType="center"
-            app:imageFromUrl="@{article.envelopePic}"
-            android:visibility="gone" />
+            android:visibility="gone"
+            app:imageFromUrl="@{article.envelopePic}" />
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -41,8 +43,8 @@
                 android:layout_alignParentTop="true"
                 android:ellipsize="end"
                 android:maxLines="1"
-                android:textColor="@color/text_title"
                 android:text="@{article.title}"
+                android:textColor="@color/text_title"
                 android:textSize="16dp" />
 
             <TextView
@@ -51,8 +53,8 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
                 android:layout_marginTop="10dp"
-                android:textColor="@color/text_content"
                 android:text="@{article.niceDate}"
+                android:textColor="@color/text_content"
                 android:textSize="14dp" />
 
 
